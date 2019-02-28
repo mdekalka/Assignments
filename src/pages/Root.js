@@ -1,8 +1,9 @@
 import React, { Component } from 'react';
 import CssBaseline from '@material-ui/core/CssBaseline';
 import { ApolloProvider } from "react-apollo";
+import { BrowserRouter as Router } from 'react-router-dom';
 
-import App from './App/App';
+import App from './App';
 import { client } from '../apolloClient'
 
 class Root extends Component {
@@ -10,7 +11,9 @@ class Root extends Component {
     return (
       <ApolloProvider client={client}>
         <CssBaseline />
-        <App />
+        <Router>
+          <App />
+        </Router>
       </ApolloProvider>
     );
   }
