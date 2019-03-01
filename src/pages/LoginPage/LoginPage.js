@@ -7,11 +7,12 @@ import Input from '@material-ui/core/Input';
 import InputLabel from '@material-ui/core/InputLabel';
 import Button from '@material-ui/core/Button';
 import Typography from '@material-ui/core/Typography';
-import { Mutation, compose, withApollo } from 'react-apollo';
+import { Mutation, compose, withApollo, Query } from 'react-apollo';
+import { Redirect } from 'react-router-dom';
 
 import logo from '../../assets/icons/logo.svg'
 import { styles } from './styles'
-import { SIGN_IN, SAVE_TOKEN } from './queries'
+import { SIGN_IN, SAVE_TOKEN, GET_AUTH_STATE } from '../../graphql/queries'
 
 
 class LoginPage extends Component {
@@ -71,62 +72,74 @@ class LoginPage extends Component {
     const { classes } = this.props
 
     return (
-      <div className={classes.root}>
-        <Paper className={classes.paper} elevation={16}>
-          <div className={classes.headline}>
-            <img src={logo} alt="main logo" className={classes.logo} />
-            <Typography variant="h4">Assignments</Typography>
-          </div>
+      <Query query={GET_AUTH_STATE}>
+        {({ data, loading }) => {
+          if (loading) return null
 
-          <Typography variant="subtitle1" gutterBottom>Login with your domain account:</Typography>
-
-          <Mutation mutation={SIGN_IN} onCompleted={this.onSignInCompleted}>
-            {(signIn, { loading, newtworkError }) => {
-              /* TODO: do a f*cking snackbar */
-              if (newtworkError) throw newtworkError
-
-              return (
-                <form noValidate autoComplete="off" className={classes.form} onSubmit={this.onSignIn(signIn)}>
-                  <FormControl fullWidth error={this.isInvalidField(username)} className={classes.formControl}>
-                    <InputLabel htmlFor="username">Username</InputLabel>
-                    <Input
-                      name="username"
-                      value={username}
-                      onChange={this.onInputChange}
-                      disabled={loading}
-                    />
-                    { this.isInvalidField(username) && <FormHelperText>Username is required</FormHelperText> }
-                  </FormControl>
-
-                  <FormControl fullWidth error={this.isInvalidField(password)} className={classes.formControl}>
-                    <InputLabel htmlFor="password">Password</InputLabel>
-                    <Input
-                      name="password"
-                      value={password}
-                      onChange={this.onInputChange}
-                      disabled={loading}
-                    />
-                    { this.isInvalidField(password) && <FormHelperText>Password is required</FormHelperText> }
-                  </FormControl>
-
-                  { error && <FormHelperText className={classes.error} error>{error}</FormHelperText> }
-
-                  <Button
-                    variant="contained"
-                    color="primary"
-                    type="submit"
-                    fullWidth
-                    className={classes.button}
-                    disabled={loading}
-                    >
-                    Sign In
-                  </Button>
-                </form>
-              )
-            }}
-          </Mutation>
-        </Paper>
-      </div>
+          if (data.isAuthenticated) {
+            return <Redirect to={{ pathname: "/" }} />
+          } else {
+            return (
+              <div className={classes.root}>
+                <Paper className={classes.paper} elevation={16}>
+                  <div className={classes.headline}>
+                    <img src={logo} alt="main logo" className={classes.logo} />
+                    <Typography variant="h4">Assignments</Typography>
+                  </div>
+        
+                  <Typography variant="subtitle1" gutterBottom>Login with your domain account:</Typography>
+        
+                  <Mutation mutation={SIGN_IN} onCompleted={this.onSignInCompleted}>
+                    {(signIn, { loading, newtworkError }) => {
+                      /* TODO: do a f*cking snackbar */
+                      if (newtworkError) throw newtworkError
+        
+                      return (
+                        <form noValidate autoComplete="off" className={classes.form} onSubmit={this.onSignIn(signIn)}>
+                          <FormControl fullWidth error={this.isInvalidField(username)} className={classes.formControl}>
+                            <InputLabel htmlFor="username">Username</InputLabel>
+                            <Input
+                              name="username"
+                              value={username}
+                              onChange={this.onInputChange}
+                              disabled={loading}
+                            />
+                            { this.isInvalidField(username) && <FormHelperText>Username is required</FormHelperText> }
+                          </FormControl>
+        
+                          <FormControl fullWidth error={this.isInvalidField(password)} className={classes.formControl}>
+                            <InputLabel htmlFor="password">Password</InputLabel>
+                            <Input
+                              name="password"
+                              value={password}
+                              onChange={this.onInputChange}
+                              disabled={loading}
+                            />
+                            { this.isInvalidField(password) && <FormHelperText>Password is required</FormHelperText> }
+                          </FormControl>
+        
+                          { error && <FormHelperText className={classes.error} error>{error}</FormHelperText> }
+        
+                          <Button
+                            variant="contained"
+                            color="primary"
+                            type="submit"
+                            fullWidth
+                            className={classes.button}
+                            disabled={loading}
+                            >
+                            Sign In
+                          </Button>
+                        </form>
+                      )
+                    }}
+                  </Mutation>
+                </Paper>
+              </div>
+            )
+          }
+        }}
+      </Query>
     )
   }
 }

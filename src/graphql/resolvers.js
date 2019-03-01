@@ -23,12 +23,6 @@ export const resolvers = {
       if (token && refreshToken) {
         auth.setToken(token, refreshToken);
 
-        cache.writeData({ 
-          data: {
-            isAuthenticated: true
-          }
-        });
-
         return null
       }
 

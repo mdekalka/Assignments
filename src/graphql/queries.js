@@ -7,9 +7,18 @@ export const SIGN_IN = gql`
       errorMessage
       refreshToken
       token
+      firstName
+      lastName
+      image
     }
   }
 `;
+
+export const GET_AUTH_STATE = gql`
+  query {
+    isAuthenticated @client
+  }
+`
 
 export const SAVE_TOKEN = gql`
   mutation ($token: String!, $refreshToken: String!) {

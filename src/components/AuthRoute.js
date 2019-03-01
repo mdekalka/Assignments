@@ -3,11 +3,8 @@ import { Route, Redirect } from 'react-router-dom';
 import { Query } from 'react-apollo';
 import gql from 'graphql-tag';
 
-const GET_AUTH_STATE = gql`
-  query {
-    isAuthenticated @client
-  }
-`
+import { GET_AUTH_STATE } from '../graphql/queries'
+
 
 class AuthRoute extends React.Component {
   render() {
