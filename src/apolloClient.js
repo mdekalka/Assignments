@@ -3,6 +3,51 @@ import { InMemoryCache } from 'apollo-cache-inmemory';
 import { HttpLink } from 'apollo-link-http';
 import { onError } from 'apollo-link-error';
 import { ApolloLink } from 'apollo-link';
+import { setContext } from 'apollo-link-context';
+
+import { GRAPHQL_URL } from './utils/constants'
+import { defaults, resolvers, typeDefs } from './graphql/resolvers'
+import { auth, TOKEN_KEY, REFRESH_TOKEN_KEY } from './services/auth'
+
+const authLink = setContext(async (req, { headers }) => {
+  const { token, refreshToken } = auth.getToken()
+
+  return {
+    ...headers,
+    headers: {
+      [TOKEN_KEY]: token || '',
+      [REFRESH_TOKEN_KEY]: refreshToken || ''
+    }
+  };
+});
+
+// const afterwareLink = new ApolloLink((operation, forward) => {
+//   return forward(operation).map(response => {
+//     const context = operation.getContext();
+
+//     if (context.response) {
+//       const {
+//         response: { headers }
+//       } = context;
+
+//       if (headers) {
+//         const token = headers.get(TOKEN_KEY);
+//         const refreshToken = headers.get(REFRESH_TOKEN_KEY);
+
+//         if (token && refreshToken) {
+//           auth.setToken(token, refreshToken)
+//         }
+//       }
+//     }
+
+//     return response;
+//   });
+// });
+
+const link = new HttpLink({
+  uri: GRAPHQL_URL,
+  credentials: 'same-origin',
+})
 
 export const client = new ApolloClient({
   link: ApolloLink.from([
@@ -15,10 +60,12 @@ export const client = new ApolloClient({
         );
       if (networkError) console.log(`[Network error]: ${networkError}`);
     }),
-    new HttpLink({
-      uri: 'https://w5xlvm3vzz.lp.gql.zone/graphql',
-      credentials: 'same-origin'
-    })
+    // afterwareLink,
+    authLink,
+    link
   ]),
-  cache: new InMemoryCache()
+  cache: new InMemoryCache(),
+  typeDefs,
+  defaults,
+  resolvers
 });
