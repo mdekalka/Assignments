@@ -7,12 +7,11 @@ import Input from '@material-ui/core/Input';
 import InputLabel from '@material-ui/core/InputLabel';
 import Button from '@material-ui/core/Button';
 import Typography from '@material-ui/core/Typography';
-import { Mutation } from 'react-apollo';
+import { Mutation, compose, withApollo } from 'react-apollo';
 
 import logo from '../../assets/icons/logo.svg'
 import { styles } from './styles'
-import { SIGN_IN } from './queries'
-import { auth } from '../../services/auth'
+import { SIGN_IN, SAVE_TOKEN } from './queries'
 
 
 class LoginPage extends Component {
@@ -33,8 +32,11 @@ class LoginPage extends Component {
 
   onSignIn = (signInMutation) => (event) => {
     event.preventDefault()
-
     this.setState({ submitted: true })
+
+    if (!this.state.username.trim() || !this.state.password.trim()) {
+      return
+    }
 
     signInMutation({ variables: {
       login: this.state.username,
@@ -42,11 +44,22 @@ class LoginPage extends Component {
     }})
   }
 
-  onSignInCompleted = ({ login }) => {
+  onSignInCompleted = async ({ login }) => {
     if (login.errorCode !== 0 && login.errorMessage) {
-      this.setState({ error: login.errorMessage})
+      this.setState({ error: login.errorMessage});
+
       return
     }
+
+    await this.props.client.mutate({
+      mutation: SAVE_TOKEN,
+      variables: {
+        token: login.token,
+        refreshToken: login.refreshToken
+      }
+    })
+
+    this.props.history.push('/')
   }
 
   isInvalidField(field) {
@@ -69,7 +82,7 @@ class LoginPage extends Component {
 
           <Mutation mutation={SIGN_IN} onCompleted={this.onSignInCompleted}>
             {(signIn, { loading, newtworkError }) => {
-              {/* TODO: do a f*cking snackbar */}
+              /* TODO: do a f*cking snackbar */
               if (newtworkError) throw newtworkError
 
               return (
@@ -118,4 +131,7 @@ class LoginPage extends Component {
   }
 }
 
-export default withStyles(styles)(LoginPage)
+export default compose(
+  withApollo,
+  withStyles(styles)
+)(LoginPage)

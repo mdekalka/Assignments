@@ -15,21 +15,14 @@ class AuthRoute extends React.Component {
 
     return (
       <Query query={GET_AUTH_STATE}>
-        {({ data }) => {
-          debugger
+        {({ data, loading }) => {
+          if (loading) return null
 
           return (
             <Route {...rest} render={props =>
-              data ? (
-                  <Component {...props} />
-                ) : (
-                  <Redirect
-                    to={{
-                      pathname: "/login",
-                      state: { from: props.location }
-                    }}
-                  />
-                )
+              data.isAuthenticated
+                ? <Component {...props} />
+                : <Redirect to={{ pathname: "/login", state: { from: props.location } }} />
               }
             />
           )

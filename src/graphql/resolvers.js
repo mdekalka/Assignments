@@ -1,41 +1,38 @@
 import gql from 'graphql-tag';
 
-export const defaults = {
-  __typename: 'Query',
-  isAuthenticated: false,
-  user: {
-    image: '',
-    firstName: '',
-    lastName: ''
-  }
-}
+import { auth } from '../services/auth'
+
+export const defaults = {}
 
 export const typeDefs = gql`
   extend type Query {
-    isAuthenticated: Boolean!
-    user: User!
-  }
-
-  extend type User {
-    image: String
-    firstName: String
-    lastName: String
+    isAuthenticated: Boolean
   }
 `
 
 export const resolvers = {
   Query: {
-    isAuthenticated: (_, __, { cache }) => {
-      const query = gql`
-        query {
-          isAuthenticated @client
-        }
-      `
+    isAuthenticated: () => {
+      const { token, refreshToken } = auth.getToken()
 
-      const { isAuthenticated } = cache.readQuery(query)
-      debugger
+      return !!(token && refreshToken)
+    }
+  },
+  Mutation: {
+    saveToken: (_, { token, refreshToken }, { cache }) => {
+      if (token && refreshToken) {
+        auth.setToken(token, refreshToken);
 
-      return isAuthenticated
+        cache.writeData({ 
+          data: {
+            isAuthenticated: true
+          }
+        });
+
+        return null
+      }
+
+      return null
     }
   }
 }

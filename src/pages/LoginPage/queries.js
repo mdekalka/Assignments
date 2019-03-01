@@ -7,11 +7,12 @@ export const SIGN_IN = gql`
       errorMessage
       refreshToken
       token
-      profileId
-      image
-      firstName
-      lastName
-      employmentDate
     }
   }
 `;
+
+export const SAVE_TOKEN = gql`
+  mutation ($token: String!, $refreshToken: String!) {
+    saveToken(token: $token, refreshToken: $refreshToken) @client
+  }
+`
