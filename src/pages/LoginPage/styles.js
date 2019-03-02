@@ -26,7 +26,15 @@ export const styles = (theme) => ({
   error: {
     fontSize: 15,
   },
-  button: {
-    marginTop: theme.spacing.unit * 2
+  buttonWrapper: {
+    position: 'relative',
+    marginTop: theme.spacing.unit * 2,
+  },
+  buttonProgress: {
+    position: 'absolute',
+    top: '50%',
+    left: '50%',
+    marginTop: -12,
+    marginLeft: -12,
   }
 })

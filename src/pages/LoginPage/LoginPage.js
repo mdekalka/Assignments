@@ -1,4 +1,6 @@
 import React, { Component } from 'react'
+import { Mutation, compose, withApollo, Query } from 'react-apollo';
+import { Redirect } from 'react-router-dom';
 import { withStyles } from '@material-ui/core/styles';
 import Paper from '@material-ui/core/Paper';
 import FormControl from '@material-ui/core/FormControl';
@@ -7,8 +9,7 @@ import Input from '@material-ui/core/Input';
 import InputLabel from '@material-ui/core/InputLabel';
 import Button from '@material-ui/core/Button';
 import Typography from '@material-ui/core/Typography';
-import { Mutation, compose, withApollo, Query } from 'react-apollo';
-import { Redirect } from 'react-router-dom';
+import CircularProgress from '@material-ui/core/CircularProgress';
 
 import logo from '../../assets/icons/logo.svg'
 import { styles } from './styles'
@@ -19,7 +20,7 @@ class LoginPage extends Component {
   state = {
     username: '',
     password: '',
-    error: null,
+    errorMessage: null,
     submitted: false
   }
 
@@ -47,7 +48,7 @@ class LoginPage extends Component {
 
   onSignInCompleted = async ({ login }) => {
     if (login.errorCode !== 0 && login.errorMessage) {
-      this.setState({ error: login.errorMessage});
+      this.setState({ errorMessage: login.errorMessage});
 
       return
     }
@@ -68,7 +69,7 @@ class LoginPage extends Component {
   }
 
   render() {
-    const { username, password, error } = this.state
+    const { username, password, errorMessage } = this.state
     const { classes } = this.props
 
     return (
@@ -90,9 +91,9 @@ class LoginPage extends Component {
                   <Typography variant="subtitle1" gutterBottom>Login with your domain account:</Typography>
         
                   <Mutation mutation={SIGN_IN} onCompleted={this.onSignInCompleted}>
-                    {(signIn, { loading, newtworkError }) => {
+                    {(signIn, { loading, error }) => {
                       /* TODO: do a f*cking snackbar */
-                      if (newtworkError) throw newtworkError
+                      if (error) throw error
         
                       return (
                         <form noValidate autoComplete="off" className={classes.form} onSubmit={this.onSignIn(signIn)}>
@@ -112,24 +113,28 @@ class LoginPage extends Component {
                             <Input
                               name="password"
                               value={password}
+                              type="password"
                               onChange={this.onInputChange}
                               disabled={loading}
                             />
                             { this.isInvalidField(password) && <FormHelperText>Password is required</FormHelperText> }
                           </FormControl>
         
-                          { error && <FormHelperText className={classes.error} error>{error}</FormHelperText> }
+                          { errorMessage && <FormHelperText className={classes.error} error>{errorMessage}</FormHelperText> }
         
-                          <Button
-                            variant="contained"
-                            color="primary"
-                            type="submit"
-                            fullWidth
-                            className={classes.button}
-                            disabled={loading}
-                            >
-                            Sign In
-                          </Button>
+                          <div className={classes.buttonWrapper}>
+                            <Button
+                              variant="contained"
+                              color="primary"
+                              type="submit"
+                              fullWidth
+                              disabled={loading}
+                              >
+                              Sign In
+                            </Button>
+                            {loading && <CircularProgress size={24} className={classes.buttonProgress} />}
+                          </div>
+
                         </form>
                       )
                     }}

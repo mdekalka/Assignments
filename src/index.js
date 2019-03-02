@@ -5,6 +5,8 @@ import Root from './pages/Root';
 import './index.css'
 import * as serviceWorker from './serviceWorker';
 
+window.__MUI_USE_NEXT_TYPOGRAPHY_VARIANTS__ = true;
+
 ReactDOM.render(<Root />, document.getElementById('root'));
 
 // If you want your app to work offline and load faster, you can change
