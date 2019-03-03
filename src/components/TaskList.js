@@ -5,10 +5,13 @@ import Grid from '@material-ui/core/Grid';
 import TaskCard from '../components/TaskCard'
 import reactLogo from '../assets/icons/react.svg'
 import reduxLogo from '../assets/icons/redux.svg'
+import jsLogo from '../assets/icons/js.svg'
+import htmlLogo from '../assets/icons/html.svg'
+import cssLogo from '../assets/icons/css.svg'
 
 const styles = (theme) => ({
   taskList: {
-    maxWidth: 1200,
+    width: 1200,
     margin: '0 auto'
   },
 })
@@ -35,13 +38,12 @@ class TaskList extends Component {
           </Grid>
           <Grid item xs={3}>
             <TaskCard
-              href="/task/react-redux"
-              title="React/Redux"
+              href="/task/javascript"
+              title="Javascript"
               description="Create shop application with adding/removing items to a cart list, having separate route for each item."
               header={
                 <Fragment>
-                  <img src={reactLogo} alt="react" />
-                  <img src={reduxLogo} alt="redux" />
+                  <img src={jsLogo} alt="javascript" />
                 </Fragment>
               }
               />
@@ -53,8 +55,8 @@ class TaskList extends Component {
               description="Create shop application with adding/removing items to a cart list, having separate route for each item."
               header={
                 <Fragment>
-                  <img src={reactLogo} alt="react" />
-                  <img src={reduxLogo} alt="redux" />
+                  <img src={htmlLogo} alt="HTML" />
+                  <img src={cssLogo} alt="CSS" />
                 </Fragment>
               }
               />

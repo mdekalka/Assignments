@@ -1,19 +1,32 @@
 import React, { Component } from 'react';
 import CssBaseline from '@material-ui/core/CssBaseline';
-import { ApolloProvider } from "react-apollo";
+import { ApolloProvider } from 'react-apollo';
 import { HashRouter as Router } from 'react-router-dom';
+import { MuiThemeProvider, createMuiTheme } from '@material-ui/core/styles';
 
 import App from './App';
 import { client } from '../apolloClient'
+
+const theme = createMuiTheme({
+  custom: {
+    wrapper: {
+      width: 1200,
+      margin: '0 auto'
+    },
+    shark: '#1e232a'
+  }
+});
 
 class Root extends Component {
   render() {
     return (
       <ApolloProvider client={client}>
-        <CssBaseline />
-        <Router>
-          <App />
-        </Router>
+        <MuiThemeProvider theme={theme}>
+          <CssBaseline />
+            <Router>
+              <App />
+            </Router>
+        </MuiThemeProvider>
       </ApolloProvider>
     );
   }

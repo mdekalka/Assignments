@@ -11,10 +11,46 @@ import Button from '@material-ui/core/Button';
 import Typography from '@material-ui/core/Typography';
 import CircularProgress from '@material-ui/core/CircularProgress';
 
-import logo from '../../assets/icons/logo.svg'
-import { styles } from './styles'
-import { SIGN_IN, SAVE_TOKEN, GET_AUTH_STATE } from '../../graphql/queries'
+import logo from '../assets/icons/logo.svg'
+import { SIGN_IN, SAVE_TOKEN, GET_AUTH_STATE } from '../graphql/queries'
 
+const styles = (theme) => ({
+  root: {
+    height: '100%',
+    display: 'flex',
+    justifyContent: 'center',
+    alignItems:'center',
+  },
+  paper: {
+    padding: `${theme.spacing.unit * 4}px ${theme.spacing.unit * 3}px`,
+    maxWidth: 450,
+  },
+  logo: {
+    marginRight: theme.spacing.unit * 2
+  },
+  headline: {
+    display: 'flex',
+    alignItems: 'center',
+    marginBottom: theme.spacing.unit * 3
+  },
+  formControl: {
+    marginBottom: theme.spacing.unit * 2
+  },
+  error: {
+    fontSize: 15,
+  },
+  buttonWrapper: {
+    position: 'relative',
+    marginTop: theme.spacing.unit * 2,
+  },
+  buttonProgress: {
+    position: 'absolute',
+    top: '50%',
+    left: '50%',
+    marginTop: -12,
+    marginLeft: -12,
+  }
+})
 
 class LoginPage extends Component {
   state = {

@@ -9,7 +9,9 @@ import TaskPage from './TaskPage'
 const styles = (theme) => ({
   main: {
     margin: '0 auto',
-    height: '100%'
+    height: '100%',
+    display: 'flex',
+    flexDirection: 'column',
   },
   toolbar: {
     display: 'flex',

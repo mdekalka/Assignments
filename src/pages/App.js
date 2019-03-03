@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { Switch, Route } from 'react-router-dom';
 
-import LoginPage from './LoginPage/LoginPage'
+import LoginPage from './LoginPage'
 import HomePage from './HomePage'
 // import withAuth from '../HOCs/withAuth'
 import AuthRoute from '../components/AuthRoute'

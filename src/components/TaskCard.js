@@ -8,18 +8,42 @@ const styles= (theme) => ({
     textDecoration: 'none',
   },
   card: {
+    position: 'relative',
     borderRadius: theme.shape.borderRadius,
-    boxShadow: theme.shadows[1],
+    boxShadow: theme.shadows[2],
     backgroundColor: theme.palette.common.white,
     overflow: 'hidden',
     cursor: 'pointer',
+    transition: 'box-shadow .2s',
+
+    '&:hover': {
+      boxShadow: theme.shadows[10],
+      '&::before': {
+        opacity: 1
+      }
+    },
+    '&::before': {
+      content: "''",
+      opacity: 0,
+      position: 'absolute',
+      top: 0,
+      right: 15,
+      width: 16,
+      height: 32,
+      padding: 0,
+      transform: 'rotate(0deg) skew(0deg)',
+      borderLeft: `9px solid #2d9dc7`,
+      borderRight: `9px solid #2d9dc7`,
+      borderBottom: '9px solid transparent',
+      transition:'opacity .2s'
+    },
   },
   header: {
     height: 150,
     display: 'flex',
     justifyContent: 'space-evenly',
     alignItems: 'center',
-    backgroundColor: '#1e232a',
+    backgroundColor: theme.custom.shark,
     '& img': {
       height: 70,
       width: 70
