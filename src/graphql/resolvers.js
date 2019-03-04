@@ -6,7 +6,7 @@ export const defaults = {}
 
 export const typeDefs = gql`
   extend type Query {
-    isAuthenticated: Boolean
+    isAuthenticated: Boolean!
   }
 `
 
@@ -22,6 +22,8 @@ export const resolvers = {
     saveToken: (_, { token, refreshToken }, { cache }) => {
       if (token && refreshToken) {
         auth.setToken(token, refreshToken);
+
+        cache.writeData({ data: { isAuthenticated: true } });
 
         return null
       }

@@ -9,6 +9,7 @@ import Badge from '@material-ui/core/Badge';
 
 import reactLogo from '../assets/icons/react.svg'
 import reduxLogo from '../assets/icons/redux.svg'
+import preview from '../assets/preview.gif'
 
 const styles = theme => ({
   root: {
@@ -61,6 +62,9 @@ const styles = theme => ({
 
   step:{
     padding: theme.spacing.unit * 2
+  },
+  preview: {
+    width: '100%'
   }
 
 })
@@ -93,6 +97,7 @@ class TaskPage extends Component {
                   Lorem, ipsum dolor sit amet consectetur adipisicing elit. Excepturi suscipit officia eaque nobis et at accusamus magni quisquam placeat recusandae, cum minus quod doloremque illum laborum rem animi eos dolores!
                 </Paper>
               </Badge>
+              <img src={preview} className={classes.preview} alt="gif preview" />
 
               </div>
             </Grid>

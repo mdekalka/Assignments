@@ -1,7 +1,6 @@
 import React from 'react'
 import { Route, Redirect } from 'react-router-dom';
 import { Query } from 'react-apollo';
-import gql from 'graphql-tag';
 
 import { GET_AUTH_STATE } from '../graphql/queries'
 
