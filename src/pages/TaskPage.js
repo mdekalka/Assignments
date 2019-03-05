@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 import { withStyles } from '@material-ui/core/styles';
 import { withRouter } from 'react-router-dom'
+import { compose } from 'react-apollo'
 import Typography from '@material-ui/core/Typography';
 import Button from '@material-ui/core/Button';
 import Grid from '@material-ui/core/Grid';
@@ -113,4 +114,7 @@ class TaskPage extends Component {
   }
 }
 
-export default withRouter(withStyles(styles)(TaskPage))
+export default compose(
+  withRouter,
+  withStyles(styles)
+)(TaskPage)

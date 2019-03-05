@@ -4,11 +4,22 @@ var favicon = require('serve-favicon');
 var logger = require('morgan');
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
+const axios = require('axios')
 
 var index = require('./routes/index');
 var users = require('./routes/users');
 
 var app = express();
+
+
+// axios.get('https://smg.itechart-group.com/MobileServiceNew/MobileService.svc/Authenticate?username=aleh.isakau&password=hybertyhui123')
+//   .then(response => response.data)
+//   .then(body => {
+//     console.log(body)
+//   })
+//   .catch(err => {
+//     console.log(err)
+//   })
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));

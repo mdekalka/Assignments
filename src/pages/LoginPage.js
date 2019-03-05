@@ -13,6 +13,8 @@ import CircularProgress from '@material-ui/core/CircularProgress';
 
 import logo from '../assets/icons/logo.svg'
 import { SIGN_IN, SAVE_TOKEN, GET_AUTH_STATE } from '../graphql/queries'
+import { storage } from '../services/storage'
+import { PROFILE_KEY } from '../utils/constants'
 
 const styles = (theme) => ({
   root: {
@@ -88,6 +90,8 @@ class LoginPage extends Component {
 
       return
     }
+
+    storage.setItem(PROFILE_KEY, login.profileId)
 
     await this.props.client.mutate({
       mutation: SAVE_TOKEN,

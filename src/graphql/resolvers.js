@@ -2,11 +2,13 @@ import gql from 'graphql-tag';
 
 import { auth } from '../services/auth'
 
-export const defaults = {}
+
+export const defaults = {
+}
 
 export const typeDefs = gql`
   extend type Query {
-    isAuthenticated: Boolean!
+    isAuthenticated: Boolean,
   }
 `
 
@@ -16,10 +18,10 @@ export const resolvers = {
       const { token, refreshToken } = auth.getToken()
 
       return !!(token && refreshToken)
-    }
+    },
   },
   Mutation: {
-    saveToken: (_, { token, refreshToken }, { cache }) => {
+    saveToken: (_, { token, refreshToken, profileId }, { cache }) => {
       if (token && refreshToken) {
         auth.setToken(token, refreshToken);
 
@@ -27,6 +29,13 @@ export const resolvers = {
 
         return null
       }
+
+      return null
+    },
+
+    logout: (_, __, { cache }) => {
+      cache.writeData({ data: { isAuthenticated: false } });
+      auth.removeToken()
 
       return null
     }

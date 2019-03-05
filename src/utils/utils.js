@@ -1,0 +1,1 @@
+export const isValidArray = (array) => Array.isArray(array) && !!array.length

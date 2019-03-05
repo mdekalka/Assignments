@@ -7,9 +7,11 @@ export const SIGN_IN = gql`
       errorMessage
       refreshToken
       token
-      firstName
-      lastName
+      firstNameEng
+      lastNameEng
       image
+      position
+      profileId
     }
   }
 `;
