@@ -3,7 +3,6 @@ import { withStyles } from '@material-ui/core/styles';
 import { withRouter } from 'react-router-dom'
 import { compose } from 'react-apollo'
 import Typography from '@material-ui/core/Typography';
-import Button from '@material-ui/core/Button';
 import Grid from '@material-ui/core/Grid';
 import Paper from '@material-ui/core/Paper';
 import Badge from '@material-ui/core/Badge';
@@ -11,6 +10,8 @@ import Badge from '@material-ui/core/Badge';
 import reactLogo from '../assets/icons/react.svg'
 import reduxLogo from '../assets/icons/redux.svg'
 import preview from '../assets/preview.gif'
+import ResourceSection from '../components/ResourceSection'
+import Mark from '../components/Mark'
 
 const styles = theme => ({
   root: {
@@ -21,7 +22,7 @@ const styles = theme => ({
     flexDirection: 'column',
   },
   headerWrapper: {
-    backgroundColor: theme.custom.shark
+    backgroundColor: '#20222d'
   },
   logo: {
     marginRight: theme.spacing.unit * 6,
@@ -72,7 +73,7 @@ const styles = theme => ({
 
 class TaskPage extends Component {
   render() {
-    const { classes, history } = this.props
+    const { classes } = this.props
 
     return (
       <div className={classes.root}>
@@ -98,7 +99,12 @@ class TaskPage extends Component {
                   Lorem, ipsum dolor sit amet consectetur adipisicing elit. Excepturi suscipit officia eaque nobis et at accusamus magni quisquam placeat recusandae, cum minus quod doloremque illum laborum rem animi eos dolores!
                 </Paper>
               </Badge>
-              <img src={preview} className={classes.preview} alt="gif preview" />
+              <ResourceSection
+                title="The Road to React with Firebase"
+                icon={<Mark value="1" />}>
+                Lorem ipsum, dolor sit amet consectetur adipisicing elit. Labore, nam placeat. Voluptates sunt est aliquid eligendi officia. Odit, amet officiis ipsum, cumque saepe non expedita, magni cum alias error perferendis?Mollitia aut nostrum optio quidem sint animi, pariatur corrupti qui blanditiis. Fuga, doloremque? Nam numquam nihil, ipsa officiis odit asperiores reiciendis fuga, officia neque nulla dolorem! Expedita iusto dolores sapiente.
+              </ResourceSection>
+              {/* <img src={preview} className={classes.preview} alt="gif preview" /> */}
 
               </div>
             </Grid>

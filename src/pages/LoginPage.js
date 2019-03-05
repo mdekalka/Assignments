@@ -140,6 +140,7 @@ class LoginPage extends Component {
                           <FormControl fullWidth error={this.isInvalidField(username)} className={classes.formControl}>
                             <InputLabel htmlFor="username">Username</InputLabel>
                             <Input
+                              autoFocus
                               name="username"
                               value={username}
                               onChange={this.onInputChange}

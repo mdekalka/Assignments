@@ -41,17 +41,21 @@ const styles = theme => ({
     alignItems: 'center',
     color: theme.palette.common.white
   },
+  appBar: {
+    backgroundColor: theme.custom.shark
+  },
   grow: {
     flexGrow: 1
   },
   avatar: {
-    margin: `0 ${theme.spacing.unit * 2}px`
+    margin: `0 ${theme.spacing.unit * 2}px`,
+    boxShadow: `0px 1px 16px 1px #2b2626`
   },
   profile: {
     textAlign: 'right',
   },
   position: {
-    color: theme.palette.grey[200]
+    color: theme.palette.grey[300]
   }
 })
 
@@ -76,7 +80,7 @@ class Header extends Component {
     const { profileId } = this.state
 
     return (
-      <AppBar position="fixed">
+      <AppBar position="fixed" className={classes.appBar}>
         <Toolbar>
           <IconButton  color="inherit" aria-label="Menu">
             <MenuIcon />
@@ -87,7 +91,7 @@ class Header extends Component {
           <Query query={GET_USER_INFO} variables={{ profileId: parseInt(profileId, 10) }}>
             {({ data, loading, }) => {
               if (loading) return null
-              {/* While profile id is saved into local storage, make sure we have a fallback to continue w/o it */}
+              // While profile id is saved into local storage, make sure we have a fallback to continue w/o it
               if (!data) {
                 data = this.extendWithDefault()
               }

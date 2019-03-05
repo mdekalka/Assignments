@@ -35,7 +35,6 @@ const styles = theme => ({
   taskListWrapper: {
     flexGrow: 1,
     padding: `${theme.spacing.unit * 6}px 0 0`,
-    backgroundColor: theme.palette.grey[200]
   },
   '@keyframes scroll': {
     '0%': {

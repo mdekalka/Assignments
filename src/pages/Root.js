@@ -13,7 +13,7 @@ const theme = createMuiTheme({
       width: 1200,
       margin: '0 auto'
     },
-    shark: '#1e232a'
+    shark: '#26293a'
   }
 });
 

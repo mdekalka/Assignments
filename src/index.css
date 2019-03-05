@@ -5,7 +5,8 @@ body {
 }
 
 body {
-  background-color: #f4f4f4;
+  /* too lazy to override <CssBaseline />  */
+  background-color: #edeff4 !important;
 }
 
 #root {
