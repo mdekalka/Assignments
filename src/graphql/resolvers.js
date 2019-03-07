@@ -3,8 +3,7 @@ import gql from 'graphql-tag';
 import { auth } from '../services/auth'
 
 
-export const defaults = {
-}
+export const defaults = {}
 
 export const typeDefs = gql`
   extend type Query {
@@ -21,7 +20,7 @@ export const resolvers = {
     },
   },
   Mutation: {
-    saveToken: (_, { token, refreshToken, profileId }, { cache }) => {
+    saveToken: (_, { token, refreshToken }, { cache }) => {
       if (token && refreshToken) {
         auth.setToken(token, refreshToken);
 
