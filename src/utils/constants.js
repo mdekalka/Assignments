@@ -2,3 +2,4 @@
 export const GRAPHQL_URL = 'https://discounts.itechart-group.com/graphql';
 
 export const PROFILE_KEY = 'profileId'
+export const REACT_REDUX_COMPLETED_KEY = 'reactReduxCompleted'

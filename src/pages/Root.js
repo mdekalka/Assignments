@@ -10,7 +10,8 @@ import { client } from '../apolloClient'
 const theme = createMuiTheme({
   custom: {
     wrapper: {
-      width: 1200,
+      maxWidth: 1300,
+      width: '100%',
       margin: '0 auto'
     },
     shark: '#26293a'
