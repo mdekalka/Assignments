@@ -14,7 +14,8 @@ const theme = createMuiTheme({
       width: '100%',
       margin: '0 auto'
     },
-    shark: '#26293a'
+    shark: '#26293a',
+    violet: '#764abc'
   }
 });
 

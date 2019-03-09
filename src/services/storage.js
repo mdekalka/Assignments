@@ -3,14 +3,16 @@ import { isValidArray } from '../utils/utils'
 export const storage = {
   setItem(key, item) {
     try {
-      localStorage.setItem(key, item)
+      localStorage.setItem(key, JSON.stringify(item))
     } catch (err) {
       throw new Error(err.message)
     }
   },
   getItem(key) {
     try {
-      return localStorage.getItem(key)
+      const item = localStorage.getItem(key)
+
+      return JSON.parse(item)
     } catch (err) {
       return null
     }

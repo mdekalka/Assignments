@@ -3,3 +3,7 @@ export const GRAPHQL_URL = 'https://discounts.itechart-group.com/graphql';
 
 export const PROFILE_KEY = 'profileId'
 export const REACT_REDUX_COMPLETED_KEY = 'reactReduxCompleted'
+
+export const REACT_REDUX_TOTAL = 12
+
+export const HEADER_HEIGHT = 64

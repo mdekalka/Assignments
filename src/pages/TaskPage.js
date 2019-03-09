@@ -1,20 +1,25 @@
-import React, { Component } from 'react'
+import React, { Component, Fragment } from 'react'
 import { withStyles } from '@material-ui/core/styles';
 import { withRouter } from 'react-router-dom'
 import { compose } from 'react-apollo'
 import Typography from '@material-ui/core/Typography';
+import RootRef from '@material-ui/core/RootRef';
 
 import reactLogo from '../assets/icons/react.svg'
 import reduxLogo from '../assets/icons/redux.svg'
 import preview1 from '../assets/preview1.png'
 import preview2 from '../assets/preview2.png'
-import ResourceSection from '../components/ResourceSection'
+import TaskSection from '../components/TaskSection'
 import Mark from '../components/Mark'
+import Highlight from '../components/Highlight'
+import TaskItem from '../components/TaskItem'
+import { storage } from '../services/storage'
+import { REACT_REDUX_COMPLETED_KEY, HEADER_HEIGHT } from '../utils/constants'
+import { data } from '../data/reactReduxData'
+
 
 const styles = theme => ({
   root: {
-    // width: 1200,
-    // margin: '15px auto',
     height: '100%',
     display: 'flex',
     flexDirection: 'column',
@@ -50,37 +55,68 @@ const styles = theme => ({
   content: {
     ...theme.custom.wrapper,
     flexGrow: 1,
+    padding: theme.spacing.unit * 3,
     backgroundColor: theme.palette.common.white,
     boxShadow: 'rgba(102, 119, 136, 0.03) 0px 6px 8px, rgba(102, 119, 136, 0.3) 0px 1px 2px'
-  },
-  gridItem: {
-    // padding: theme.spacing.unit * 2
-  },
-  badge: {
-    left: '50%',
-    right: 'auto'
-  },
-
-  step:{
-    padding: theme.spacing.unit * 2
   },
   preview: {
     position: 'relative',
     textAlign: 'center',
-    padding: theme.spacing.unit * 2,
 
     '& img': {
       width: '100%',
       height: 'auto'
     }
-    // width: '100%'
+  },
+  workLine: {
+    position: 'relative'
   }
-
 })
 
 class TaskPage extends Component {
+  refsHash = {}
+
+  state = {
+    completed: []
+  }
+
+  componentDidMount() {
+    const completed = storage.getItem(REACT_REDUX_COMPLETED_KEY) || []
+
+    this.setState({ completed })
+  }
+
+  onToggleCompleted = (markId) => {
+    const { completed } = this.state
+    let updated
+
+    if (completed.includes(markId)) {
+      updated = completed.filter(id => id !== markId)
+    } else {
+      updated = [...completed, markId]
+    }
+
+    this.setState({ completed: updated })
+    storage.setItem(REACT_REDUX_COMPLETED_KEY, updated)
+  }
+
+  onScrollToTarget = (id) => {
+    const currentRef = this.refsHash[id]
+    
+    if (currentRef) {
+      const { top } = currentRef.getBoundingClientRect()
+
+      window.scrollTo(0, top + window.pageYOffset - HEADER_HEIGHT)
+    }
+  }
+
+  defineRef = (id) => (element) => {
+    this.refsHash[id] = element
+  }
+
   render() {
     const { classes } = this.props
+    const { completed } = this.state
 
     return (
       <div className={classes.root}>
@@ -92,7 +128,7 @@ class TaskPage extends Component {
             </div>
             <div>
               <Typography variant="h4" gutterBottom color="primary">React/Redux</Typography>
-              <Typography variant="subtitle1" color="inherit">Shopping Cart app</Typography>
+              <Typography variant="subtitle1" color="inherit">Shop cart application</Typography>
               <Typography variant="body1" className={classes.description}>Descriptions</Typography>
             </div>
           </div>
@@ -100,33 +136,32 @@ class TaskPage extends Component {
         <div className={classes.content}>
           <div className={classes.preview}>
             <img src={preview1} alt="preview" />
-            <Mark top={'17%'} left={'2%'} value={1} pulse/>
-            <Mark top={'40%'} left={'2%'} value={2} pulse/>
-            <Mark top={'47%'} left={'20%'} value={3} pulse/>
-            <Mark top={'63%'} left={'22%'} value={4} pulse/>
-            <Mark top={'79%'} left={'20%'} value={5} pulse/>
-            <Mark top={'22%'} left={'90%'} value={6} pulse/>
-            <Mark top={'22%'} left={'96%'} value={7} pulse/>
-            <Mark top={'33%'} left={'70%'} value={8} pulse/>
-            <Mark top={'84%'} left={'57%'} value={9} pulse/>
+            <Mark top={'17%'} left={'2%'} value={1} pulse onClick={this.onScrollToTarget} />
+            <Mark top={'40%'} left={'2%'} value={2} pulse onClick={this.onScrollToTarget} />
+            <Mark top={'47%'} left={'20%'} value={3} pulse onClick={this.onScrollToTarget} />
+            <Mark top={'63%'} left={'22%'} value={4} pulse onClick={this.onScrollToTarget} />
+            <Mark top={'79%'} left={'20%'} value={5} pulse onClick={this.onScrollToTarget} />
+            <Mark top={'22%'} left={'90%'} value={6} pulse onClick={this.onScrollToTarget} />
+            <Mark top={'22%'} left={'96%'} value={7} pulse onClick={this.onScrollToTarget} />
+            <Mark top={'33%'} left={'70%'} value={8} pulse onClick={this.onScrollToTarget} />
+            <Mark top={'84%'} left={'57%'} value={9} pulse onClick={this.onScrollToTarget} />
           </div>
           <div className={classes.preview}>
             <img src={preview2} alt="preview" />
-            <Mark top={'27%'} left={'72%'} value={10} pulse/>
-            <Mark top={'68%'} left={'69%'} value={11} pulse/>
-            <Mark top={'84%'} left={'68%'} value={12} pulse/>
+            <Mark top={'27%'} left={'72%'} value={10} pulse onClick={this.onScrollToTarget} />
+            <Mark top={'68%'} left={'69%'} value={11} pulse onClick={this.onScrollToTarget} />
+            <Mark top={'84%'} left={'68%'} value={12} pulse onClick={this.onScrollToTarget} />
           </div>
 
-              <div className={classes.gridItem}>
-            <ResourceSection
-                title="Product name input"
-                icon={<Mark value={1} />}>
-                Lorem ipsum, dolor sit amet consectetur adipisicing elit. Labore, nam placeat. Voluptates sunt est aliquid eligendi officia. Odit, amet officiis ipsum, cumque saepe non expedita, magni cum alias error perferendis?Mollitia aut nostrum optio quidem sint animi, pariatur corrupti qui blanditiis. Fuga, doloremque? Nam numquam nihil, ipsa officiis odit asperiores reiciendis fuga, officia neque nulla dolorem! Expedita iusto dolores sapiente.
-              </ResourceSection>
-              {/* <img src={preview} className={classes.preview} alt="gif preview" /> */}
-
-              </div>
-
+          <div className={classes.workLine}>
+          {data.map(item => (
+            <RootRef rootRef={this.defineRef(item.id)}>
+              <TaskSection title={item.title} mark={item.mark} completed={completed} onToggle={this.onToggleCompleted}>
+                {item.content.map(content => <TaskItem item={content} />)}
+              </TaskSection>
+            </RootRef>
+          ))}
+          </div>
         </div>
 
       </div>

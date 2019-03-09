@@ -5,7 +5,7 @@ import cls from 'classnames'
 const styles = theme => ({
   root: {
     position: 'relative',
-    display: 'flex',
+    display: 'inline-flex',
     flexDirection: 'row',
     justifyContent: 'center',
     alignContent: 'center',
@@ -15,12 +15,12 @@ const styles = theme => ({
     height: 22,
     borderRadius: '50%',
     color: theme.palette.common.white,
-    backgroundColor: '#764abc',
+    backgroundColor: theme.custom.violet,
     fontSize: '.75rem',
     fontFamily: theme.typography.fontFamily,
     fontWeight: 500,
     cursor: 'pointer',
-    zIndex: 1,
+    zIndex: 10,
   },
   pulse: {
     '&::after': {
@@ -53,11 +53,11 @@ const styles = theme => ({
 
 class Mark extends Component {
   render() {
-    const { classes, value, pulse, top, left } = this.props
+    const { classes, value, pulse, top, left, onClick } = this.props
     const styles = (top || left) ? { top, left, position: 'absolute' } : {}
 
     return (
-      <span style={styles} className={cls(classes.root, { [classes.pulse]: pulse })}>
+      <span style={styles} className={cls(classes.root, { [classes.pulse]: pulse })} onClick={() => onClick(value)}>
         {value}
       </span>
     )
