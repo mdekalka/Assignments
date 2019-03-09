@@ -4,7 +4,7 @@ import { Route, Switch } from 'react-router-dom';
 
 import Header from '../components/Header'
 import IntroPage from './IntroPage'
-import TaskPage from './TaskPage'
+import ReactReduxPage from './ReactReduxPage'
 
 const styles = (theme) => ({
   main: {
@@ -35,7 +35,7 @@ class HomePage extends Component {
 
           <Switch>
             <Route exact path="/" component={IntroPage} />
-            <Route exact path="/task/:id" component={TaskPage} />
+            <Route exact path="/task/react-redux" component={ReactReduxPage} />
           </Switch>
         </main>
       </Fragment>

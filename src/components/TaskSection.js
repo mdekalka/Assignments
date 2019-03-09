@@ -2,7 +2,6 @@ import React, { Component } from 'react';
 import { withStyles } from '@material-ui/core/styles';
 import Typography from '@material-ui/core/Typography';
 import cls from 'classnames'
-import DoneIcon from '@material-ui/icons/Done'
 
 import Mark from '../components/Mark'
 
@@ -44,20 +43,17 @@ const styles = theme => ({
       border: `1px solid ${theme.custom.violet}`
     }
   },
-  checkmark: {
-    fontSize: 14
-  }
 })
 
 class TaskSection extends Component {
   render() {
     const { classes, title, mark, completed, children, onToggle } = this.props
-    const done = !!completed.includes(mark)
+    const done = completed.includes(mark)
 
     return (
       <div className={cls(classes.root, { [classes.done]: done })} onClick={() => onToggle(mark)}>
         {mark && <div className={classes.icon}>
-          <Mark value={done ? <DoneIcon className={classes.checkmark} /> : mark} />
+          <Mark value={mark} done={done} />
         </div>}
         <Typography variant="subtitle1" gutterBottom className={classes.title}>{title}</Typography>
         <div>{children}</div>

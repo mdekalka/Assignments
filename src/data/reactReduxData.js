@@ -1,7 +1,7 @@
 import React, { Fragment } from 'react'
 import Highlight from '../components/Highlight'
 
-export const data = [
+export const tasks = [
   {
     id: 1,
     mark: 1,
@@ -87,5 +87,83 @@ export const data = [
     content: [
       <Fragment>On <Highlight>click</Highlight> should navigate user to the root <Highlight>/</Highlight> and render product list view.</Fragment>
     ]
+  }
+]
+
+export const firstMarks = [
+  {
+    id: 1,
+    mark: 1,
+    top: '17%',
+    left: '2%',
+  },
+  {
+    id: 2,
+    mark: 2,
+    top: '40%',
+    left: '2%',
+  },
+  {
+    id: 3,
+    mark: 3,
+    top: '47%',
+    left: '20%',
+  },
+  {
+    id: 4,
+    mark: 4,
+    top: '63%',
+    left: '22%',
+  },
+  {
+    id: 5,
+    mark: 5,
+    top: '79%',
+    left: '20%',
+  },
+  {
+    id: 6,
+    mark: 6,
+    top: '22%',
+    left: '90%',
+  },
+  {
+    id: 7,
+    mark: 7,
+    top: '22%',
+    left: '96%',
+  },
+  {
+    id: 8,
+    mark: 8,
+    top: '33%',
+    left: '70%',
+  },
+  {
+    id: 9,
+    mark: 9,
+    top: '84%',
+    left: '57%',
+  }
+]
+
+export const secondMarks = [
+  {
+    id: 10,
+    mark: 10,
+    top: '27%',
+    left: '72%',
+  },
+  {
+    id: 11,
+    mark: 11,
+    top: '68%',
+    left: '69%',
+  },
+  {
+    id: 12,
+    mark: 12,
+    top: '84%',
+    left: '68%',
   }
 ]

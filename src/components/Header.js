@@ -11,6 +11,8 @@ import MenuIcon from '@material-ui/icons/Menu';
 import Avatar from '@material-ui/core/Avatar';
 import LogoutIcon from '@material-ui/icons/ExitToApp'
 import Tooltip from '@material-ui/core/Tooltip';
+import Button from '@material-ui/core/Button';
+import { Link } from 'react-router-dom';
 
 import { storage } from '../services/storage'
 import { PROFILE_KEY } from '../utils/constants'
@@ -85,9 +87,10 @@ class Header extends Component {
           <IconButton  color="inherit" aria-label="Menu">
             <MenuIcon />
           </IconButton>
-          <Typography variant="h6" color="inherit" className={classes.grow}>
-            App
-          </Typography>
+          <div className={classes.grow}>
+            <Button color="inherit" component={props => <Link {...props} to="/" />}>Home</Button>
+          </div>
+            
           <Query query={GET_USER_INFO} variables={{ profileId: parseInt(profileId, 10) }}>
             {({ data, loading, }) => {
               if (loading) return null

@@ -3,8 +3,11 @@ import CssBaseline from '@material-ui/core/CssBaseline';
 import { ApolloProvider } from 'react-apollo';
 import { HashRouter as Router } from 'react-router-dom';
 import { MuiThemeProvider, createMuiTheme } from '@material-ui/core/styles';
+import { Switch, Route } from 'react-router-dom';
 
-import App from './App';
+import LoginPage from './LoginPage'
+import HomePage from './HomePage'
+import AuthRoute from '../components/AuthRoute'
 import { client } from '../apolloClient'
 
 const theme = createMuiTheme({
@@ -25,9 +28,12 @@ class Root extends Component {
       <ApolloProvider client={client}>
         <MuiThemeProvider theme={theme}>
           <CssBaseline />
-            <Router>
-              <App />
-            </Router>
+          <Router>
+            <Switch>
+              <Route exact path="/login" component={LoginPage} />
+              <AuthRoute path="/" component={HomePage} />
+            </Switch>
+          </Router>
         </MuiThemeProvider>
       </ApolloProvider>
     );
