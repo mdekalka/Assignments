@@ -58,6 +58,10 @@ const styles = theme => ({
 
 
 class Mark extends Component {
+  static defaultProps = {
+    onClick: () => {}
+  }
+
   render() {
     const { classes, value, pulse, top, left, onClick, done } = this.props
     const styles = (top || left) ? { top, left, position: 'absolute' } : {}
@@ -69,5 +73,6 @@ class Mark extends Component {
     )
   }
 }
+
 
 export default withStyles(styles)(Mark)

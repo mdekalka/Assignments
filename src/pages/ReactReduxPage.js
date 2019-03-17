@@ -1,4 +1,4 @@
-import React, { Component, Fragment } from 'react'
+import React, { Component } from 'react'
 import { withStyles } from '@material-ui/core/styles';
 import { withRouter } from 'react-router-dom'
 import { compose } from 'react-apollo'
@@ -91,12 +91,6 @@ class ReactReduxPage extends Component {
 
   state = {
     completed: []
-  }
-
-  componentDidMount() {
-    const completed = storage.getItem(REACT_REDUX_COMPLETED_KEY) || []
-
-    this.setState({ completed })
   }
 
   onToggleCompleted = (markId) => {
