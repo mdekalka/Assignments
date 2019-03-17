@@ -3,6 +3,7 @@ const router = express.Router();
 const params = require('params');
 
 const shopCart = require('../services/todoService')
+const { validateProduct } = require('../utils/validations')
 
 
 router.get('/', function(req, res) {
