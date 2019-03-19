@@ -1,42 +1,31 @@
 {
-  "name": "assignments",
-  "version": "0.1.0",
-  "private": true,
-  "dependencies": {
-    "@material-ui/core": "^3.9.2",
-    "@material-ui/icons": "^3.0.2",
-    "apollo-cache-inmemory": "^1.5.1",
-    "apollo-client": "^2.5.1",
-    "apollo-link": "^1.2.8",
-    "apollo-link-context": "^1.0.14",
-    "apollo-link-error": "^1.1.7",
-    "apollo-link-http": "^1.5.11",
-    "apollo-link-state": "^0.4.2",
-    "axios": "^0.18.0",
-    "classnames": "^2.2.6",
-    "graphql": "^14.1.1",
-    "graphql-tag": "^2.10.1",
-    "prop-types": "^15.7.2",
-    "react": "^16.8.3",
-    "react-apollo": "^2.5.1",
-    "react-dom": "^16.8.3",
-    "react-router-dom": "^4.3.1",
-    "react-scripts": "2.1.5"
+  "name": "Assignments app",
+  "version": "1.0.0",
+  "description": "",
+  "engines": {
+    "node": "10.x"
   },
   "scripts": {
-    "start": "react-scripts start",
-    "build": "react-scripts build",
-    "test": "react-scripts test",
-    "eject": "react-scripts eject"
+    "start": "node server",
+    "heroku-postbuild": "cd client/ && yarn install && yarn install --only=dev --no-shrinkwrap && yarn build"
   },
-  "eslintConfig": {
-    "extends": "react-app"
+  "cacheDirectories": [
+    "client/node_modules",
+    "server/node_modules"
+  ],
+  "dependencies": {
+    "express": "^4.16.4"
   },
-  "proxy": "http://localhost:3001",
-  "browserslist": [
-    ">0.2%",
-    "not dead",
-    "not ie <= 11",
-    "not op_mini all"
-  ]
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/mdekalka/assignments.git"
+  },
+  "keywords": [
+    "node",
+    "heroku",
+    "create-react-app",
+    "react"
+  ],
+  "license": "MIT",
+  "devDependencies": {}
 }
