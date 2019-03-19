@@ -3,11 +3,12 @@
   "version": "1.0.0",
   "description": "",
   "engines": {
-    "node": "10.x"
+    "node": "10.x",
+    "yarn": "1.0.0"
   },
   "scripts": {
     "start": "node server",
-    "heroku-postbuild": "cd client/ && yarn install && yarn install --only=dev --no-shrinkwrap && yarn run build"
+    "heroku-postbuild": "cd client/ && yarn install && yarn install --only=dev --no-shrinkwrap && yarn build"
   },
   "cacheDirectories": [
     "client/node_modules",
