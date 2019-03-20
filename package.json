@@ -8,7 +8,7 @@
   },
   "scripts": {
     "start": "node server/bin/www",
-    "postinstall": "yarn install --prefix server && yarn install --prefix client",
+    "postinstall": "yarn install --prefix server",
     "heroku-postbuild": "cd client/ && yarn install && yarn install --only=dev --no-shrinkwrap && yarn build"
   },
   "cacheDirectories": [
