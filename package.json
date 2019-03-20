@@ -3,18 +3,28 @@
   "version": "1.0.0",
   "description": "",
   "engines": {
-    "node": "10.x",
+    "node": "8.x",
     "yarn": "1.x"
   },
   "scripts": {
-    "start": "node server/bin/www",
-    "postinstall": "yarn install --prefix ./server",
+    "start": "node bin/www",
     "heroku-postbuild": "cd client/ && yarn install && yarn install --only=dev --no-shrinkwrap && yarn build"
   },
   "cacheDirectories": [
     "client/node_modules",
-    "server/node_modules"
+    "node_modules"
   ],
+  "dependencies": {
+    "body-parser": "~1.15.2",
+    "cookie-parser": "~1.4.3",
+    "debug": "~2.2.0",
+    "express": "~4.14.0",
+    "joi": "^14.3.1",
+    "morgan": "~1.7.0",
+    "params": "^0.1.1",
+    "pug": "~2.0.0-beta6",
+    "serve-favicon": "~2.3.0"
+  },
   "repository": {
     "type": "git",
     "url": "https://github.com/mdekalka/assignments.git"
