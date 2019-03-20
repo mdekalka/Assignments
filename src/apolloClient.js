@@ -34,29 +34,6 @@ const errorLink = onError(({ graphQLErrors, networkError }) => {
   if (networkError) console.log(`[Network error]: ${networkError}`);
 });
 
-// const afterwareLink = new ApolloLink((operation, forward) => {
-//   return forward(operation).map(response => {
-//     const context = operation.getContext();
-
-//     if (context.response) {
-//       const {
-//         response: { headers }
-//       } = context;
-
-//       if (headers) {
-//         const token = headers.get(TOKEN_KEY);
-//         const refreshToken = headers.get(REFRESH_TOKEN_KEY);
-
-//         if (token && refreshToken) {
-//           auth.setToken(token, refreshToken)
-//         }
-//       }
-//     }
-
-//     return response;
-//   });
-// });
-
 const link = new HttpLink({
   uri: GRAPHQL_URL,
   credentials: 'same-origin',
@@ -68,7 +45,6 @@ export const client = new ApolloClient({
   cache,
   link: ApolloLink.from([
     errorLink,
-  // afterwareLink,
     stateLink,
     authLink,
     link,

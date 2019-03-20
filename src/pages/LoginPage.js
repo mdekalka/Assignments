@@ -133,7 +133,7 @@ class LoginPage extends Component {
                   <Mutation mutation={SIGN_IN} onCompleted={this.onSignInCompleted}>
                     {(signIn, { loading, error }) => {
                       /* TODO: do a f*cking snackbar */
-                      if (error) throw error
+                      if (error) console.log(error)
         
                       return (
                         <form noValidate autoComplete="off" className={classes.form} onSubmit={this.onSignIn(signIn)}>

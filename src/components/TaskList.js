@@ -22,7 +22,7 @@ class TaskList extends Component {
     
     return (
       <div className={classes.taskList}>
-        <Grid container spacing={24}>
+        <Grid container justify="center" spacing={24}>
           <Grid item xs={3}>
             <TaskCard
               href="/task/react-redux"
@@ -57,19 +57,6 @@ class TaskList extends Component {
                 <Fragment>
                   <img src={htmlLogo} alt="HTML" />
                   <img src={cssLogo} alt="CSS" />
-                </Fragment>
-              }
-              />
-          </Grid>
-          <Grid item xs={3}>
-            <TaskCard
-              href="/task/react-redux"
-              title="React/Redux"
-              description="Create shop application with adding/removing items to a cart list, having separate route for each item."
-              header={
-                <Fragment>
-                  <img src={reactLogo} alt="react" />
-                  <img src={reduxLogo} alt="redux" />
                 </Fragment>
               }
               />
