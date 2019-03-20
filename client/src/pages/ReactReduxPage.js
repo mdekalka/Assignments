@@ -167,7 +167,7 @@ class ReactReduxPage extends Component {
 
           <Typography variant="h6" gutterBottom className={classes.partTitle}>Redux part:</Typography>
           <Typography variant="subtitle1" gutterBottom>
-            <TaskItem>— Load initial product list via HTTP with any mock API (<a target="_blank" rel="noopener noreferrer" href="https://www.mockable.io">https://www.mockable.io</a>) or using our API endpoint and put it into Redux store.</TaskItem>
+          <TaskItem>— Load initial product list via HTTP with any mock API (<a target="_blank" rel="noopener noreferrer" href="https://www.mockable.io">https://www.mockable.io</a>, <a target="_blank" rel="noopener noreferrer" href="https://beeceptor.com/">https://beeceptor.com/</a>) or any else.</TaskItem>
             <TaskItem>— Refactor required application events to Redux actions/action creators/reducers.</TaskItem>
           </Typography>
 
