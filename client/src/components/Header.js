@@ -84,9 +84,6 @@ class Header extends Component {
     return (
       <AppBar position="fixed" className={classes.appBar}>
         <Toolbar>
-          <IconButton  color="inherit" aria-label="Menu">
-            <MenuIcon />
-          </IconButton>
           <div className={classes.grow}>
             <Button color="inherit" component={props => <Link {...props} to="/" />}>Home</Button>
           </div>

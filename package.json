@@ -7,7 +7,7 @@
     "yarn": "1.x"
   },
   "scripts": {
-    "start": "node server",
+    "start": "node server/bin/www",
     "heroku-postbuild": "cd client/ && yarn install && yarn install --only=dev --no-shrinkwrap && yarn build"
   },
   "cacheDirectories": [
