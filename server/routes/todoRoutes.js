@@ -7,13 +7,11 @@ const { validateProduct } = require('../utils/validations')
 
 
 router.get('/', function(req, res) {
-  res.json({ data: shopCart.productList, iamge: '/images/apple.svg' })
+  res.json({ data: shopCart.productList })
 })
 
 router.post('/', function(req, res, next) {
   const product = params(req.body).only('id', 'productName', 'price', 'quantity', 'icon');
-
-  console.log(product, 'PRODU')
 
   // shopCart.addProduct(product)
 
