@@ -132,8 +132,11 @@ class LoginPage extends Component {
         
                   <Mutation mutation={SIGN_IN} onCompleted={this.onSignInCompleted}>
                     {(signIn, { loading, error }) => {
-                      /* TODO: do a f*cking snackbar */
-                      if (error) console.log(error)
+                      let resultError;
+                      /* TODO: make a snackbar */
+                      if (error) {
+                        resultError = errorMessage || error.message
+                      }
         
                       return (
                         <form noValidate autoComplete="off" className={classes.form} onSubmit={this.onSignIn(signIn)}>
@@ -161,7 +164,7 @@ class LoginPage extends Component {
                             { this.isInvalidField(password) && <FormHelperText>Password is required</FormHelperText> }
                           </FormControl>
         
-                          { errorMessage && <FormHelperText className={classes.error} error>{errorMessage}</FormHelperText> }
+                          { resultError && <FormHelperText className={classes.error} error>{resultError}</FormHelperText> }
         
                           <div className={classes.buttonWrapper}>
                             <Button

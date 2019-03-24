@@ -5,6 +5,7 @@ import { Route, Switch } from 'react-router-dom';
 import Header from '../components/Header'
 import IntroPage from './IntroPage'
 import ReactReduxPage from './ReactReduxPage'
+import JSPage from './JSPage'
 
 const styles = (theme) => ({
   main: {
@@ -20,7 +21,6 @@ const styles = (theme) => ({
     padding: '0 8px',
     ...theme.mixins.toolbar,
   },
-
 })
 
 class HomePage extends Component {
@@ -36,6 +36,7 @@ class HomePage extends Component {
           <Switch>
             <Route exact path="/" component={IntroPage} />
             <Route exact path="/task/react-redux" component={ReactReduxPage} />
+            <Route exact path="/task/javascript" component={JSPage} />
           </Switch>
         </main>
       </Fragment>

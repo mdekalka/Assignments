@@ -7,7 +7,6 @@ import AppBar from '@material-ui/core/AppBar';
 import Toolbar from '@material-ui/core/Toolbar';
 import Typography from '@material-ui/core/Typography';
 import IconButton from '@material-ui/core/IconButton';
-import MenuIcon from '@material-ui/icons/Menu';
 import Avatar from '@material-ui/core/Avatar';
 import LogoutIcon from '@material-ui/icons/ExitToApp'
 import Tooltip from '@material-ui/core/Tooltip';
@@ -109,8 +108,8 @@ class Header extends Component {
                     {logout => (
                       <Tooltip title="Log out">
                         <IconButton aria-label="Log out" color="inherit" onClick={() => {
-                          logout()
-                          this.props.history.replace('/login')
+                            logout()
+                            this.props.history.replace('/login')
                           }}>
                           <LogoutIcon />
                         </IconButton>

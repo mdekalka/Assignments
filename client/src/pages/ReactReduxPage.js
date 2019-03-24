@@ -51,9 +51,6 @@ const styles = theme => ({
       height: 100
     }
   },
-  description: {
-    color: theme.palette.grey[300]
-  },
   content: {
     ...theme.custom.wrapper,
     flexGrow: 1,
@@ -134,9 +131,8 @@ class ReactReduxPage extends Component {
               <img src={reduxLogo} alt="redux" />
             </div>
             <div>
-              <Typography variant="h4" gutterBottom color="primary">React/Redux</Typography>
+              <Typography variant="h4" color="primary">React/Redux</Typography>
               <Typography variant="subtitle1" color="inherit">Shop cart application</Typography>
-              <Typography variant="body1" className={classes.description}>Descriptions</Typography>
             </div>
           </div>
         </div>
