@@ -13,43 +13,20 @@ import preview2 from '../assets/preview2.png'
 import TaskSection from '../components/TaskSection'
 import Mark from '../components/Mark'
 import TaskItem from '../components/TaskItem'
+import TaskHeader from '../components/TaskHeader'
 import Highlight from '../components/Highlight'
 import { storage } from '../services/storage'
 import { REACT_REDUX_COMPLETED_KEY, HEADER_HEIGHT } from '../utils/constants'
 import { tasks, firstMarks, secondMarks } from '../data/reactReduxData'
 import downloadTask from '../files/tasks.rar'
 
+const logos = [reactLogo, reduxLogo]
 
 const styles = theme => ({
   root: {
     height: '100%',
     display: 'flex',
     flexDirection: 'column',
-  },
-  headerWrapper: {
-    backgroundColor: '#20222d'
-  },
-  logo: {
-    marginRight: theme.spacing.unit * 6,
-
-    '& img': {
-      marginRight: theme.spacing.unit * 2,
-
-      '&:last-child': {
-        marginRight: 0
-      }
-    }
-  },
-  header: {
-    ...theme.custom.wrapper,
-    display: 'flex',
-    padding: `${theme.spacing.unit * 4}px ${theme.spacing.unit * 2}px`,
-    color: theme.palette.common.white,
-
-    '& img': {
-      width: 100,
-      height: 100
-    }
   },
   content: {
     ...theme.custom.wrapper,
@@ -124,18 +101,7 @@ class ReactReduxPage extends Component {
 
     return (
       <div className={classes.root}>
-        <div className={classes.headerWrapper}>
-          <div className={classes.header}>
-            <div className={classes.logo}>
-              <img src={reactLogo} alt="react" />
-              <img src={reduxLogo} alt="redux" />
-            </div>
-            <div>
-              <Typography variant="h4" color="primary">React/Redux</Typography>
-              <Typography variant="subtitle1" color="inherit">Shop cart application</Typography>
-            </div>
-          </div>
-        </div>
+        <TaskHeader title="React/Redux" description="Shop cart application" logos={logos} />
         <div className={classes.content}>
           <Typography variant="subtitle1" gutterBottom>
             This task consists of 2 two parts: <br />

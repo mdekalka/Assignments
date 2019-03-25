@@ -2,7 +2,7 @@ import React, { Component, Fragment } from 'react'
 import { withStyles } from '@material-ui/core/styles';
 import { Route, Switch } from 'react-router-dom';
 
-import Header from '../components/Header'
+import MainHeader from '../components/MainHeader'
 import IntroPage from './IntroPage'
 import ReactReduxPage from './ReactReduxPage'
 import JSPage from './JSPage'
@@ -29,7 +29,7 @@ class HomePage extends Component {
 
     return (
       <Fragment>
-        <Header />
+        <MainHeader />
         <main className={classes.main}>
           <div className={classes.toolbar} />
 

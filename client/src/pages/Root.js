@@ -31,7 +31,7 @@ class Root extends Component {
           <Router>
             <Switch>
               <Route exact path="/login" component={LoginPage} />
-              <Route path="/" component={HomePage} />
+              <AuthRoute path="/" component={HomePage} />
             </Switch>
           </Router>
         </MuiThemeProvider>

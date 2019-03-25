@@ -60,7 +60,7 @@ const styles = theme => ({
   }
 })
 
-class Header extends Component {
+class MainHeader extends Component {
   state = {
     profileId: storage.getItem(PROFILE_KEY)
   }
@@ -129,4 +129,4 @@ class Header extends Component {
 export default compose(
   withRouter,
   withStyles(styles)
-)(Header)
+)(MainHeader)
