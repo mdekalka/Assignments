@@ -39,7 +39,7 @@ class TaskHeader extends Component {
       <div className={classes.headerWrapper}>
         <div className={classes.header}>
           <div className={classes.logo}>
-            {logos.map(logo => <img src={logo} alt="this is just a logo"/>)}
+            {logos.map((logo, index) => <img src={logo} key={index} alt="this is just a logo"/>)}
           </div>
           <div>
             <Typography variant="h4" color="primary">{title}</Typography>

@@ -5,8 +5,7 @@ import cls from 'classnames'
 
 const styles = theme => ({
   root: {
-    backgroundColor: theme.palette.grey[100],
-    fontStyle: 'italic',
+    backgroundColor: theme.custom.lightGray,
     padding: `${theme.spacing.unit / 2}px ${theme.spacing.unit}px`,
     borderLeft: `3px solid #61dafb`,
     fontSize: 15

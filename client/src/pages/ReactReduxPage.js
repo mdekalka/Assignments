@@ -14,6 +14,8 @@ import TaskSection from '../components/TaskSection'
 import Mark from '../components/Mark'
 import TaskItem from '../components/TaskItem'
 import TaskHeader from '../components/TaskHeader'
+import TaskContent from '../components/TaskContent'
+import TaskHeadline from '../components/TaskHeadline'
 import Highlight from '../components/Highlight'
 import { storage } from '../services/storage'
 import { REACT_REDUX_COMPLETED_KEY, HEADER_HEIGHT } from '../utils/constants'
@@ -27,13 +29,6 @@ const styles = theme => ({
     height: '100%',
     display: 'flex',
     flexDirection: 'column',
-  },
-  content: {
-    ...theme.custom.wrapper,
-    flexGrow: 1,
-    padding: theme.spacing.unit * 3,
-    backgroundColor: theme.palette.common.white,
-    boxShadow: 'rgba(102, 119, 136, 0.03) 0px 6px 8px, rgba(102, 119, 136, 0.3) 0px 1px 2px'
   },
   preview: {
     position: 'relative',
@@ -55,9 +50,6 @@ const styles = theme => ({
   preTitle: {
     fontSize: 16,
   },
-  partTitle: {
-    color: theme.custom.violet
-  }
 })
 
 class ReactReduxPage extends Component {
@@ -101,8 +93,12 @@ class ReactReduxPage extends Component {
 
     return (
       <div className={classes.root}>
-        <TaskHeader title="React/Redux" description="Shop cart application" logos={logos} />
-        <div className={classes.content}>
+        <TaskHeader
+          title="React/Redux"
+          description="Create shop application with adding/removing items to a cart list, having separate route for each product."
+          logos={logos}
+        />
+        <TaskContent>
           <Typography variant="subtitle1" gutterBottom>
             This task consists of 2 two parts: <br />
             - pure <Highlight>React</Highlight> application <br />
@@ -117,7 +113,7 @@ class ReactReduxPage extends Component {
             </Typography>
           </div>
 
-          <Typography variant="h6" gutterBottom className={classes.partTitle}>React part:</Typography>
+          <TaskHeadline title="React part" gutter />
           <Typography variant="body1" className={classes.preTitle}>User have ability to:</Typography>
           <Typography variant="subtitle1" gutterBottom>
             <TaskItem>— enter product name and price, increase/decrease quantity and select icon for the product.</TaskItem>
@@ -127,7 +123,8 @@ class ReactReduxPage extends Component {
             <TaskItem>— to increase/decrease quantity of chosen product item <Mark value={8} /> and total price will change accordingly.</TaskItem>
           </Typography>
 
-          <Typography variant="h6" gutterBottom className={classes.partTitle}>Redux part:</Typography>
+          <br/>
+          <TaskHeadline title="Redux part" gutter />
           <Typography variant="subtitle1" gutterBottom>
           <TaskItem>— Load initial product list via HTTP with any mock API (<a target="_blank" rel="noopener noreferrer" href="https://www.mockable.io">https://www.mockable.io</a>, <a target="_blank" rel="noopener noreferrer" href="https://beeceptor.com/">https://beeceptor.com/</a>) or any else.</TaskItem>
             <TaskItem>— Refactor required application events to Redux actions/action creators/reducers.</TaskItem>
@@ -164,14 +161,21 @@ class ReactReduxPage extends Component {
           <div className={classes.workLine}>
             {tasks.map(task => (
               <RootRef key={task.id} rootRef={this.defineRef(task.id)}>
-                <TaskSection title={task.title} mark={task.mark} completed={completed} onToggle={this.onToggleCompleted}>
-                  {task.content.map((content, i) => <TaskItem key={i}>{content}</TaskItem>)}
+                <TaskSection
+                  key={task.id}
+                  title={task.title}
+                  mark={task.mark}
+                  completed={completed}
+                  onToggle={this.onToggleCompleted}
+                  >
+                  {task.content.map((content, i) =>
+                    <TaskItem key={i}>{content}</TaskItem>
+                  )}
                 </TaskSection>
               </RootRef>
             ))}
           </div>
-        </div>
-
+        </TaskContent>
       </div>
     )
   }

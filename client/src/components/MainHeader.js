@@ -13,9 +13,9 @@ import Tooltip from '@material-ui/core/Tooltip';
 import Button from '@material-ui/core/Button';
 import { Link } from 'react-router-dom';
 
-import { storage } from '../services/storage'
-import { PROFILE_KEY } from '../utils/constants'
-import defaultAvatar from '../assets/defaultAvatar.png'
+import { storage } from '../services/storage';
+import { PROFILE_KEY } from '../utils/constants';
+import defaultAvatar from '../assets/defaultAvatar.png';
 
 
 const GET_USER_INFO = gql`
@@ -95,7 +95,7 @@ class MainHeader extends Component {
                 data = this.extendWithDefault()
               }
 
-              const { firstNameEng, lastNameEng, image, position} = data.getUser
+              const { firstNameEng, lastNameEng, image, position } = data.getUser
 
               return (
                 <div className={classes.root}>

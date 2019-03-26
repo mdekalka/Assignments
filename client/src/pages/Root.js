@@ -10,7 +10,13 @@ import HomePage from './HomePage'
 import AuthRoute from '../components/AuthRoute'
 import { client } from '../apolloClient'
 
+
 const theme = createMuiTheme({
+  palette: {
+    background: {
+      default: '#edeff4'
+    }
+  },
   custom: {
     wrapper: {
       maxWidth: 1300,
@@ -18,7 +24,8 @@ const theme = createMuiTheme({
       margin: '0 auto'
     },
     shark: '#26293a',
-    violet: '#764abc'
+    violet: '#764abc',
+    lightGray: '#edeff4'
   }
 });
 

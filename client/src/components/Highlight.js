@@ -1,12 +1,11 @@
 import React, { Component } from 'react'
 import { withStyles } from '@material-ui/core/styles';
 
-const styles = theme => ({
+const styles = () => ({
   root: {
     color: '#764abc',
-    padding: `0 ${theme.spacing.unit / 2}px`,
     fontWeight: 500
-  }
+  },
 })
 
  class Highlight extends Component {

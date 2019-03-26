@@ -4,11 +4,6 @@ body {
   height: 100%;
 }
 
-body {
-  /* too lazy to override <CssBaseline /> properly */
-  background-color: #edeff4 !important;
-}
-
 #root {
   height: 100%;
 }

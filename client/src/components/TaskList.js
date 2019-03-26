@@ -27,7 +27,7 @@ class TaskList extends Component {
             <TaskCard
               href="/task/react-redux"
               title="React/Redux"
-              description="Create shop application with adding/removing items to a cart list, having separate route for each item."
+              description="Create shop application with adding/removing items to a cart list, having separate route for each product."
               header={
                 <Fragment>
                   <img src={reactLogo} alt="react" />
@@ -40,11 +40,9 @@ class TaskList extends Component {
             <TaskCard
               href="/task/javascript"
               title="Javascript"
-              description="Create shop application with adding/removing items to a cart list, having separate route for each item."
+              description="Create your own JavaScript utils functions. Implement real-world user story."
               header={
-                <Fragment>
-                  <img src={jsLogo} alt="javascript" />
-                </Fragment>
+                <img src={jsLogo} alt="javascript" />
               }
               />
           </Grid>
