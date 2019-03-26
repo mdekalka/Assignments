@@ -21,7 +21,9 @@ import { storage } from '../services/storage'
 import { REACT_REDUX_COMPLETED_KEY, HEADER_HEIGHT } from '../utils/constants'
 import { tasks, firstMarks, secondMarks } from '../data/reactReduxData'
 import downloadTask from '../files/tasks.rar'
+import withCompleted from '../HOCs/withCompleted'
 
+const TaskSectionWithCompleted = withCompleted(TaskSection, REACT_REDUX_COMPLETED_KEY)
 const logos = [reactLogo, reduxLogo]
 
 const styles = theme => ({
@@ -55,24 +57,6 @@ const styles = theme => ({
 class ReactReduxPage extends Component {
   refsHash = {}
 
-  state = {
-    completed: []
-  }
-
-  onToggleCompleted = (markId) => {
-    const { completed } = this.state
-    let updated
-
-    if (completed.includes(markId)) {
-      updated = completed.filter(id => id !== markId)
-    } else {
-      updated = [...completed, markId]
-    }
-
-    this.setState({ completed: updated })
-    storage.setItem(REACT_REDUX_COMPLETED_KEY, updated)
-  }
-
   onScrollToTarget = (id) => {
     const currentRef = this.refsHash[id]
     
@@ -89,7 +73,6 @@ class ReactReduxPage extends Component {
 
   render() {
     const { classes } = this.props
-    const { completed } = this.state
 
     return (
       <div className={classes.root}>
@@ -161,17 +144,15 @@ class ReactReduxPage extends Component {
           <div className={classes.workLine}>
             {tasks.map(task => (
               <RootRef key={task.id} rootRef={this.defineRef(task.id)}>
-                <TaskSection
+                <TaskSectionWithCompleted
                   key={task.id}
                   title={task.title}
                   mark={task.mark}
-                  completed={completed}
-                  onToggle={this.onToggleCompleted}
-                  >
+                >
                   {task.content.map((content, i) =>
                     <TaskItem key={i}>{content}</TaskItem>
                   )}
-                </TaskSection>
+                </TaskSectionWithCompleted>
               </RootRef>
             ))}
           </div>
