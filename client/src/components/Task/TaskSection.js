@@ -1,9 +1,9 @@
 import React, { Component } from 'react';
 import { withStyles } from '@material-ui/core/styles';
-import Typography from '@material-ui/core/Typography';
 import cls from 'classnames'
 
-import Mark from '../components/Mark'
+import Mark from '../../components/Mark'
+
 
 const styles = theme => ({
   root: {
@@ -17,7 +17,7 @@ const styles = theme => ({
     }
   },
   markLine: {
-    padding: `${theme.spacing.unit * 2}px ${theme.spacing.unit * 4}px`,
+    padding: `${theme.spacing.unit * 2}px ${theme.spacing.unit * 3}px`,
 
     '&::before': {
       content: "''",
@@ -34,14 +34,14 @@ const styles = theme => ({
   done: {
     backgroundColor: theme.custom.lightGray,
     opacity: .4,
+
+    '&:hover': {
+      backgroundColor: theme.custom.lightGray
+    },
     
     '&::before': {
       border: `1px solid ${theme.custom.violet}`
     }
-  },
-  title:{
-    fontSize: 16,
-    fontWeight: 500
   },
   icon: {
     position: 'absolute',
@@ -54,23 +54,25 @@ const styles = theme => ({
 
 class TaskSection extends Component {
   static defaultProps = {
+    showMark: true,
     completed: [],
     onToggle: () => {}
   }
 
   render() {
-    const { classes, title, mark, completed, children, onToggle } = this.props
+    const { classes, mark, showMark, completed, children, onToggle } = this.props
     const done = completed.includes(mark)
 
     return (
       <div
-        className={cls(classes.root, { [classes.done]: done, [classes.markLine]: mark })}
+        className={cls(classes.root, { [classes.done]: done, [classes.markLine]: showMark })}
         onClick={() => onToggle(mark)}
       >
-        {mark && <div className={classes.icon}>
-          <Mark value={mark} done={done} />
-        </div>}
-        <Typography variant="subtitle1" className={classes.title}>{title}</Typography>
+        {showMark &&
+          <div className={classes.icon}>
+            <Mark value={mark} done={done} />
+          </div>
+        }
         <div>{children}</div>
       </div>
     )

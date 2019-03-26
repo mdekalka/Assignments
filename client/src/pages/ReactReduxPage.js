@@ -10,20 +10,15 @@ import reactLogo from '../assets/icons/react.svg'
 import reduxLogo from '../assets/icons/redux.svg'
 import preview1 from '../assets/preview1.png'
 import preview2 from '../assets/preview2.png'
-import TaskSection from '../components/TaskSection'
+
+import { TaskSection, TaskDescription, TaskJumbotron, TaskHeadline, TaskContent } from '../components/Task'
 import Mark from '../components/Mark'
-import TaskItem from '../components/TaskItem'
-import TaskHeader from '../components/TaskHeader'
-import TaskContent from '../components/TaskContent'
-import TaskHeadline from '../components/TaskHeadline'
 import Highlight from '../components/Highlight'
-import { storage } from '../services/storage'
 import { REACT_REDUX_COMPLETED_KEY, HEADER_HEIGHT } from '../utils/constants'
 import { tasks, firstMarks, secondMarks } from '../data/reactReduxData'
 import downloadTask from '../files/tasks.rar'
 import withCompleted from '../HOCs/withCompleted'
 
-const TaskSectionWithCompleted = withCompleted(TaskSection, REACT_REDUX_COMPLETED_KEY)
 const logos = [reactLogo, reduxLogo]
 
 const styles = theme => ({
@@ -72,11 +67,11 @@ class ReactReduxPage extends Component {
   }
 
   render() {
-    const { classes } = this.props
+    const { classes, completed, onToggle } = this.props
 
     return (
       <div className={classes.root}>
-        <TaskHeader
+        <TaskJumbotron
           title="React/Redux"
           description="Create shop application with adding/removing items to a cart list, having separate route for each product."
           logos={logos}
@@ -99,18 +94,18 @@ class ReactReduxPage extends Component {
           <TaskHeadline title="React part" gutter />
           <Typography variant="body1" className={classes.preTitle}>User have ability to:</Typography>
           <Typography variant="subtitle1" gutterBottom>
-            <TaskItem>— enter product name and price, increase/decrease quantity and select icon for the product.</TaskItem>
-            <TaskItem>— add product to produst list via <Mark value={5} /> button if all input values are valid.</TaskItem>
-            <TaskItem>— to remove chosen product item via <Mark value={6} /> button.</TaskItem>
-            <TaskItem>— to navigate to separate product item view via <Mark value={7} /> link.</TaskItem>
-            <TaskItem>— to increase/decrease quantity of chosen product item <Mark value={8} /> and total price will change accordingly.</TaskItem>
+            <TaskDescription>— enter product name and price, increase/decrease quantity and select icon for the product.</TaskDescription>
+            <TaskDescription>— add product to produst list via <Mark value={5} /> button if all input values are valid.</TaskDescription>
+            <TaskDescription>— to remove chosen product item via <Mark value={6} /> button.</TaskDescription>
+            <TaskDescription>— to navigate to separate product item view via <Mark value={7} /> link.</TaskDescription>
+            <TaskDescription>— to increase/decrease quantity of chosen product item <Mark value={8} /> and total price will change accordingly.</TaskDescription>
           </Typography>
 
           <br/>
           <TaskHeadline title="Redux part" gutter />
           <Typography variant="subtitle1" gutterBottom>
-          <TaskItem>— Load initial product list via HTTP with any mock API (<a target="_blank" rel="noopener noreferrer" href="https://www.mockable.io">https://www.mockable.io</a>, <a target="_blank" rel="noopener noreferrer" href="https://beeceptor.com/">https://beeceptor.com/</a>) or any else.</TaskItem>
-            <TaskItem>— Refactor required application events to Redux actions/action creators/reducers.</TaskItem>
+          <TaskDescription>— Load initial product list via HTTP with any mock API (<a target="_blank" rel="noopener noreferrer" href="https://www.mockable.io">https://www.mockable.io</a>, <a target="_blank" rel="noopener noreferrer" href="https://beeceptor.com/">https://beeceptor.com/</a>) or any else.</TaskDescription>
+            <TaskDescription>— Refactor required application events to Redux actions/action creators/reducers.</TaskDescription>
           </Typography>
 
           <div className={classes.preview}>
@@ -144,15 +139,9 @@ class ReactReduxPage extends Component {
           <div className={classes.workLine}>
             {tasks.map(task => (
               <RootRef key={task.id} rootRef={this.defineRef(task.id)}>
-                <TaskSectionWithCompleted
-                  key={task.id}
-                  title={task.title}
-                  mark={task.mark}
-                >
-                  {task.content.map((content, i) =>
-                    <TaskItem key={i}>{content}</TaskItem>
-                  )}
-                </TaskSectionWithCompleted>
+                <TaskSection completed={completed} onToggle={onToggle} mark={task.mark}>
+                  <TaskDescription title={task.title}>{task.content}</TaskDescription>
+                </TaskSection>
               </RootRef>
             ))}
           </div>
@@ -164,5 +153,6 @@ class ReactReduxPage extends Component {
 
 export default compose(
   withRouter,
+  withCompleted(REACT_REDUX_COMPLETED_KEY),
   withStyles(styles)
 )(ReactReduxPage)

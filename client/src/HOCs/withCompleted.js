@@ -3,10 +3,16 @@ import React, { Component } from 'react';
 import { storage } from '../services/storage'
 
 
-const withCompleted = (WrappedComponent, storageKey) => {
+const withCompleted = storageKey => WrappedComponent => {
   return class extends Component {
     state = {
       completed: []
+    }
+
+    componentDidMount() {
+      const completed = storage.getItem(storageKey) || []
+
+      this.setState({ completed });
     }
 
     onToggleCompleted = (markId) => {
@@ -18,7 +24,7 @@ const withCompleted = (WrappedComponent, storageKey) => {
       } else {
         updated = [...completed, markId]
       }
-  
+
       this.setState({ completed: updated })
       storage.setItem(storageKey, updated)
     }

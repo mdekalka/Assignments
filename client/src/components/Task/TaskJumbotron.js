@@ -31,7 +31,7 @@ const styles = (theme) => ({
 })
 
 
-class TaskHeader extends Component {
+class TaskJumbotron extends Component {
   render() {
     const { classes, title, description, logos } = this.props
 
@@ -51,4 +51,4 @@ class TaskHeader extends Component {
   }
 }
 
-export default withStyles(styles)(TaskHeader)
+export default withStyles(styles)(TaskJumbotron)

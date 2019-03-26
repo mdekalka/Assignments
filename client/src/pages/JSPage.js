@@ -1,14 +1,14 @@
-import React, { Component } from 'react'
+import React, { Component } from 'react';
 import { withStyles } from '@material-ui/core/styles';
+import { compose } from 'react-apollo';
 
-import TaskHeader from '../components/TaskHeader'
-import TaskHeadeline from '../components/TaskHeadline'
-import TaskContent from '../components/TaskContent'
-import TaskSection from '../components/TaskSection'
-import TaskItem from '../components/TaskItem'
+import { TaskJumbotron, TaskHeadline, TaskContent, TaskSection, TaskDescription, TaskExtra, TaskLink, TaskSeparator } from '../components/Task'
+import withCompleted from '../HOCs/withCompleted'
 
 import jsLogo from '../assets/icons/js.svg'
-import { utilsTask, robotTask } from '../data/javaScriptData'
+import { utilsTask, robotTask, loggerData, lectures } from '../data/javaScriptData'
+import { JAVASCRIPT_COMPLETED_KEY } from '../utils/constants'
+
 
 const logos = [jsLogo]
 
@@ -22,47 +22,56 @@ const styles = theme => ({
 
 class JSPage extends Component {
   render() {
-    const { classes } = this.props
+    const { classes, completed, onToggle } = this.props
 
     return (
       <div className={classes.root}>
-        <TaskHeader
+        <TaskJumbotron
           title="JavaScript"
           description="Create your own JavaScript utils functions. Implement real-world user story"
           logos={logos}
         />
+
         <TaskContent>
-          <TaskHeadeline title="Utils task" gutter />
+          <TaskExtra title="Before you start you can take a look at JavaScript screencasts & useful links:">
+            {lectures.map(lecture => <TaskLink key={lecture.id} title={lecture.title} href={lecture.href} />)}
+          </TaskExtra>
+
+          <TaskSeparator offset="large" />
+
+          <TaskHeadline title="Utils task" gutter />
           {utilsTask.map(task => (
-            <TaskSection
-              key={task.id}
-              title={task.title}
-              mark={task.mark}
-            >
-              {task.content.map((content, i) =>
-                <TaskItem key={i}>{content}</TaskItem>
-              )}
+            <TaskSection completed={completed} onToggle={onToggle} key={task.id} mark={task.mark}>
+              <TaskDescription title={task.title}>{task.content}</TaskDescription>
             </TaskSection>
           ))}
-          <br/>
-          <TaskHeadeline title="Robot task" gutter />
+
+          <TaskSeparator offset="large" />
+
+          <TaskHeadline title="Robot task" gutter />
           {robotTask.map(task => (
-            <TaskSection
-              key={task.id}
-              title={task.title}
-              mark={6}
-              >
-              {task.content.map((content, i) =>
-                <TaskItem key={i}>{content}</TaskItem>
-              )}
+            <TaskSection completed={completed} onToggle={onToggle} key={task.id} mark={task.mark} showMark={false}>
+              <TaskDescription title={task.title}>{task.content}</TaskDescription>
             </TaskSection>
           ))}
-          <br/>
-          <TaskHeadeline title="Logging library" gutter />
+          
+          <TaskSeparator offset="large" />
+
+          <TaskHeadline title="Logging library" gutter />
+          {loggerData.map(task => (
+            <TaskSection completed={completed} onToggle={onToggle} key={task.id} mark={task.mark} showMark={false}>
+              <TaskDescription title={task.title}>{task.content}</TaskDescription>
+            </TaskSection>
+          ))}
+
+          <TaskDescription title={"piu"}></TaskDescription>
         </TaskContent>
       </div>
     )
   }
 }
 
-export default withStyles(styles)(JSPage)
+export default compose(
+  withCompleted(JAVASCRIPT_COMPLETED_KEY),
+  withStyles(styles)
+)(JSPage)

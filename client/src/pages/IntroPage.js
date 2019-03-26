@@ -2,7 +2,7 @@ import React, { Component, Fragment } from 'react'
 import { withStyles } from '@material-ui/core/styles';
 import Typography from '@material-ui/core/Typography';
 
-import TaskList from '../components/TaskList'
+import IntroList from '../components/IntroList'
 import background from '../assets/code-bg.svg'
 
 const styles = theme => ({
@@ -32,10 +32,6 @@ const styles = theme => ({
     fontSize: '1.15rem',
     color: theme.palette.common.white
   },
-  taskListWrapper: {
-    flexGrow: 1,
-    padding: `${theme.spacing.unit * 6}px 0 0`,
-  },
   '@keyframes scroll': {
     '0%': {
       transform: 'translate3d(0, 0, 0)'
@@ -63,10 +59,8 @@ class IntroPage extends Component {
             Good Luck.
           </Typography>
         </div>
-
-        <div className={classes.taskListWrapper}>
-          <TaskList />
-        </div>
+        
+        <IntroList />
       </Fragment>
     )
   }

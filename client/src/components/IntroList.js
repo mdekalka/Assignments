@@ -1,22 +1,25 @@
-import React, { Component, Fragment } from 'react'
+import React, { Component, Fragment } from 'react';
 import { withStyles } from '@material-ui/core/styles';
 import Grid from '@material-ui/core/Grid';
 
-import TaskCard from '../components/TaskCard'
-import reactLogo from '../assets/icons/react.svg'
-import reduxLogo from '../assets/icons/redux.svg'
-import jsLogo from '../assets/icons/js.svg'
-import htmlLogo from '../assets/icons/html.svg'
-import cssLogo from '../assets/icons/css.svg'
+import { TaskCard } from '../components/Task'
+
+import reactLogo from '../assets/icons/react.svg';
+import reduxLogo from '../assets/icons/redux.svg';
+import jsLogo from '../assets/icons/js.svg';
+import htmlLogo from '../assets/icons/html.svg';
+import cssLogo from '../assets/icons/css.svg';
 
 const styles = (theme) => ({
   taskList: {
     width: 1200,
-    margin: '0 auto'
+    margin: '0 auto',
+    flexGrow: 1,
+    padding: `${theme.spacing.unit * 6}px 0 0`,
   },
 })
 
-class TaskList extends Component {
+class IntroList extends Component {
   render() {
     const { classes }= this.props
     
@@ -65,4 +68,4 @@ class TaskList extends Component {
   }
 }
 
-export default withStyles(styles)(TaskList)
+export default withStyles(styles)(IntroList)
