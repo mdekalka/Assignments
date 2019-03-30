@@ -3,18 +3,16 @@ import { Mutation, compose, withApollo, Query } from 'react-apollo';
 import { Redirect } from 'react-router-dom';
 import { withStyles } from '@material-ui/core/styles';
 import Paper from '@material-ui/core/Paper';
-import FormControl from '@material-ui/core/FormControl';
-import FormHelperText from '@material-ui/core/FormHelperText';
-import Input from '@material-ui/core/Input';
-import InputLabel from '@material-ui/core/InputLabel';
-import Button from '@material-ui/core/Button';
 import Typography from '@material-ui/core/Typography';
-import CircularProgress from '@material-ui/core/CircularProgress';
 
-import logo from '../assets/icons/logo.svg'
-import { SIGN_IN, SAVE_TOKEN, GET_AUTH_STATE } from '../graphql/queries'
-import { storage } from '../services/storage'
-import { PROFILE_KEY } from '../utils/constants'
+import SigninForm from '../components/SigninForm'
+import SigninTokenForm from '../components/SigninTokenForm'
+import logo from '../assets/icons/logo.svg';
+import { SIGN_IN, SIGN_IN_WITH_TOKEN, SAVE_TOKEN, GET_AUTH_STATE } from '../graphql/queries';
+import { storage } from '../services/storage';
+import { PROFILE_KEY } from '../utils/constants';
+import svg from '../assets/main-bg.svg';
+
 
 const styles = (theme) => ({
   root: {
@@ -22,6 +20,9 @@ const styles = (theme) => ({
     display: 'flex',
     justifyContent: 'center',
     alignItems:'center',
+    backgroundColor: '#202934',
+    background: `url(${svg}) no-repeat center center fixed`,
+    backgroundSize: 'cover'
   },
   paper: {
     padding: `${theme.spacing.unit * 4}px ${theme.spacing.unit * 3}px`,
@@ -35,22 +36,9 @@ const styles = (theme) => ({
     alignItems: 'center',
     marginBottom: theme.spacing.unit * 3
   },
-  formControl: {
-    marginBottom: theme.spacing.unit * 2
-  },
-  error: {
-    fontSize: 15,
-  },
-  buttonWrapper: {
-    position: 'relative',
-    marginTop: theme.spacing.unit * 2,
-  },
-  buttonProgress: {
-    position: 'absolute',
-    top: '50%',
-    left: '50%',
-    marginTop: -12,
-    marginLeft: -12,
+  divider: {
+    marginTop: theme.spacing.unit * 3,
+    marginBottom: theme.spacing.unit * 3
   }
 })
 
@@ -58,8 +46,9 @@ class LoginPage extends Component {
   state = {
     username: '',
     password: '',
+    tokenString: '',
     errorMessage: null,
-    submitted: false
+    submitted: false,
   }
 
   onInputChange = (event) => {
@@ -70,18 +59,22 @@ class LoginPage extends Component {
     })
   }
 
-  onSignIn = (signInMutation) => (event) => {
+  onSignIn = (signIn) => (event) => {
     event.preventDefault()
-    this.setState({ submitted: true })
+    this.setState({ submitted: true, errorMessage: null })
 
     if (!this.state.username.trim() || !this.state.password.trim()) {
       return
     }
 
-    signInMutation({ variables: {
+    signIn({ variables: {
       login: this.state.username,
       password: this.state.password
     }})
+  }
+
+  onSignInWithToken = (signInWithToken) => (event) => {
+    event.preventDefault()
   }
 
   onSignInCompleted = async ({ login }) => {
@@ -104,12 +97,16 @@ class LoginPage extends Component {
     this.props.history.push('/')
   }
 
+  onSignInFailed = (error) => {
+    this.setState({ errorMessage: error.message })
+  }
+
   isInvalidField(field) {
     return this.state.submitted && !field.trim().length
   }
 
   render() {
-    const { username, password, errorMessage } = this.state
+    const { username, password, tokenString, errorMessage } = this.state
     const { classes } = this.props
 
     return (
@@ -128,58 +125,34 @@ class LoginPage extends Component {
                     <Typography variant="h4">Assignments</Typography>
                   </div>
         
-                  <Typography variant="subtitle1" gutterBottom>Login with your domain account:</Typography>
+                  <Typography variant="subtitle1" gutterBottom>Log in with your domain account.</Typography>
         
-                  <Mutation mutation={SIGN_IN} onCompleted={this.onSignInCompleted}>
-                    {(signIn, { loading, error }) => {
-                      let resultError;
-                      /* TODO: make a snackbar */
-                      if (error) {
-                        resultError = errorMessage || error.message
-                      }
-        
+                  <Mutation mutation={SIGN_IN} onCompleted={this.onSignInCompleted} onError={this.onSignInFailed}>
+                    {(signIn, { loading }) => {
                       return (
-                        <form noValidate autoComplete="off" className={classes.form} onSubmit={this.onSignIn(signIn)}>
-                          <FormControl fullWidth error={this.isInvalidField(username)} className={classes.formControl}>
-                            <InputLabel htmlFor="username">Username</InputLabel>
-                            <Input
-                              autoFocus
-                              name="username"
-                              value={username}
-                              onChange={this.onInputChange}
-                              disabled={loading}
-                            />
-                            { this.isInvalidField(username) && <FormHelperText>Username is required</FormHelperText> }
-                          </FormControl>
-        
-                          <FormControl fullWidth error={this.isInvalidField(password)} className={classes.formControl}>
-                            <InputLabel htmlFor="password">Password</InputLabel>
-                            <Input
-                              name="password"
-                              value={password}
-                              type="password"
-                              onChange={this.onInputChange}
-                              disabled={loading}
-                            />
-                            { this.isInvalidField(password) && <FormHelperText>Password is required</FormHelperText> }
-                          </FormControl>
-        
-                          { resultError && <FormHelperText className={classes.error} error>{resultError}</FormHelperText> }
-        
-                          <div className={classes.buttonWrapper}>
-                            <Button
-                              variant="contained"
-                              color="primary"
-                              type="submit"
-                              fullWidth
-                              disabled={loading}
-                              >
-                              Sign In
-                            </Button>
-                            {loading && <CircularProgress size={24} className={classes.buttonProgress} />}
-                          </div>
+                        <SigninForm
+                          error={errorMessage}
+                          loading={loading}
+                          username={username}
+                          password={password}
+                          onChange={this.onInputChange}
+                          onSubmit={this.onSignIn(signIn)}
+                        />
+                      )
+                    }}
+                  </Mutation>
 
-                        </form>
+                  <Typography className={classes.divider} align="center" variant="button" gutterBottom>or</Typography>
+
+                  <Mutation mutation={SIGN_IN_WITH_TOKEN}>
+                    {(signInWithToken, { loading }) => {
+                      return (
+                        <SigninTokenForm
+                          loading={loading}
+                          token={tokenString}
+                          onChange={this.onInputChange}
+                          onSubmit={this.onSignInWithToken(signInWithToken)}
+                        />
                       )
                     }}
                   </Mutation>

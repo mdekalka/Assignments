@@ -3,9 +3,13 @@ const path = require('path');
 const logger = require('morgan');
 const cookieParser = require('cookie-parser');
 const bodyParser = require('body-parser');
+const expressGraphQL = require('express-graphql');
 
 const index = require('./routes/index');
-const todoRoutes = require('./routes/todoRoutes');
+// const todoRoutes = require('./routes/todoRoutes');
+const schema = require('./schema/schema');
+
+require('dotenv').config()
 
 const app = express();
 
@@ -36,7 +40,10 @@ if (process.env.NODE_ENV === 'production') {
 }
 
 app.use('/', index);
-app.use('/api/todo', todoRoutes)
+app.use('/graphql', expressGraphQL({
+  schema,
+  graphiql: true
+}));
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {

@@ -4,6 +4,7 @@ import { Route, Switch } from 'react-router-dom';
 
 import MainHeader from '../components/MainHeader'
 import IntroPage from './IntroPage'
+import NoMatchPage from './NoMatchPage'
 import ReactReduxPage from './ReactReduxPage'
 import JSPage from './JSPage'
 
@@ -32,11 +33,11 @@ class HomePage extends Component {
         <MainHeader />
         <main className={classes.main}>
           <div className={classes.toolbar} />
-
           <Switch>
             <Route exact path="/" component={IntroPage} />
             <Route exact path="/task/react-redux" component={ReactReduxPage} />
             <Route exact path="/task/javascript" component={JSPage} />
+            <Route component={NoMatchPage} />
           </Switch>
         </main>
       </Fragment>
