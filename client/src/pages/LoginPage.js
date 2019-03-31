@@ -7,6 +7,7 @@ import Typography from '@material-ui/core/Typography';
 
 import SigninForm from '../components/SigninForm'
 import SigninTokenForm from '../components/SigninTokenForm'
+import Divider from '../components/Divider'
 import logo from '../assets/icons/logo.svg';
 import { SIGN_IN, SIGN_IN_WITH_TOKEN, SAVE_TOKEN, GET_AUTH_STATE } from '../graphql/queries';
 import { storage } from '../services/storage';
@@ -34,10 +35,6 @@ const styles = (theme) => ({
   headline: {
     display: 'flex',
     alignItems: 'center',
-    marginBottom: theme.spacing.unit * 3
-  },
-  divider: {
-    marginTop: theme.spacing.unit * 3,
     marginBottom: theme.spacing.unit * 3
   }
 })
@@ -163,7 +160,7 @@ class LoginPage extends Component {
                     }}
                   </Mutation>
 
-                  <Typography className={classes.divider} align="center" variant="button" gutterBottom>or</Typography>
+                  <Divider title="or" />
 
                   <Mutation mutation={SIGN_IN_WITH_TOKEN} onCompleted={this.onSignInWithTokenCompleted} onError={this.onSignInWithTokenFailed} client={localClient}>
                     {(signInWithToken, { loading }) => {

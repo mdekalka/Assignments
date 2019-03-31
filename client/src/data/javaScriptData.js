@@ -140,7 +140,7 @@ export const lectures = [
     href: 'https://developer.mozilla.org/en-US/docs/Web/JavaScript/Guide'
   },
   {
-    id: 9,
+    id: 10,
     title: 'Introduction to JavaScript by freeCodeCamp',
     href: 'https://learn.freecodecamp.org/javascript-algorithms-and-data-structures/basic-javascript'
   }
