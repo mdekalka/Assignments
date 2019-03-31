@@ -19,15 +19,8 @@ export const SIGN_IN = gql`
 export const SIGN_IN_WITH_TOKEN = gql`
   mutation($token: String!) {
     tokenLogin(token: $token) {
-      errorCode
-      errorMessage
       refreshToken
       token
-      firstNameEng
-      lastNameEng
-      image
-      position
-      profileId
     }
   }
 `

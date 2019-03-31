@@ -1,7 +1,3 @@
-const { generateToken } = require('../utils/utils')
-
-const token = generateToken()
-
 const mockedProductList = [
   {
     id: 1,
@@ -19,19 +15,7 @@ const mockedProductList = [
   }
 ]
 
-const defaultUser = {
-  errorCode: 0,
-  errorMessage: '',
-  token,
-  refreshToken: token,
-  firstNameEng: 'Princess',
-  lastNameEng: 'Bubblegum',
-  image: '/static/images/defaultAvatar.png',
-  position: 'Don\'t mess with me',
-  profileId: 9999,
-}
 
 module.exports = {
-  mockedProductList,
-  defaultUser
+  mockedProductList
 }

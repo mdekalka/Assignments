@@ -65,20 +65,46 @@ class MainHeader extends Component {
     profileId: storage.getItem(PROFILE_KEY)
   }
 
-  extendWithDefault() {
+  createMockUser() {
     return {
-      getUser: {
-        image: defaultAvatar,
-        firstNameEng: 'Princess',
-        lastNameEng: 'Bubblegum',
-        position: 'Don\'t mess with me'
-      }
+      image: defaultAvatar,
+      firstNameEng: 'Princess',
+      lastNameEng: 'Bubblegum',
+      position: 'Ruler of the Candy Kingdom'
     }
+  }
+
+  // TODO: move to separate SFC
+  renderUser(user) {
+    const { classes } = this.props
+
+    return (
+      <div className={classes.root}>
+        <div className={classes.profile}>
+          <Typography variant="subtitle1" color="inherit">{`${user.firstNameEng} ${user.lastNameEng}`}</Typography>
+          <Typography variant="caption" className={classes.position}>{user.position}</Typography>
+        </div>
+        <Avatar alt="Your depressed hopeless face" className={classes.avatar} src={user.image} />
+        <Mutation mutation={LOG_OUT}>
+          {logout => (
+            <Tooltip title="Log out">
+              <IconButton aria-label="Log out" color="inherit" onClick={() => {
+                  logout()
+                  this.props.history.replace('/login')
+                }}>
+                <LogoutIcon />
+              </IconButton>
+            </Tooltip>
+          )}
+        </Mutation>
+      </div>
+    )
   }
 
   render() {
     const { classes } = this.props
     const { profileId } = this.state
+    const isProfileIdExists = !!parseInt(profileId, 10)
 
     return (
       <AppBar position="fixed" className={classes.appBar}>
@@ -86,40 +112,17 @@ class MainHeader extends Component {
           <div className={classes.grow}>
             <Button color="inherit" component={props => <Link {...props} to="/" />}>Home</Button>
           </div>
-            
-          <Query query={GET_USER_INFO} variables={{ profileId: parseInt(profileId, 10) }}>
-            {({ data, loading, }) => {
-              if (loading) return null
-              // While profile id is saved into local storage, make sure we have a fallback to continue w/o it
-              if (!data) {
-                data = this.extendWithDefault()
-              }
 
-              const { firstNameEng, lastNameEng, image, position } = data.getUser
-
-              return (
-                <div className={classes.root}>
-                  <div className={classes.profile}>
-                    <Typography variant="subtitle1" color="inherit">{`${firstNameEng} ${lastNameEng}`}</Typography>
-                    <Typography variant="caption" className={classes.position}>{position}</Typography>
-                  </div>
-                  <Avatar alt="Remy Sharp" className={classes.avatar} src={image} />
-                  <Mutation mutation={LOG_OUT}>
-                    {logout => (
-                      <Tooltip title="Log out">
-                        <IconButton aria-label="Log out" color="inherit" onClick={() => {
-                            logout()
-                            this.props.history.replace('/login')
-                          }}>
-                          <LogoutIcon />
-                        </IconButton>
-                      </Tooltip>
-                    )}
-                  </Mutation>
-                </div>
-              )
-            }}
-          </Query>
+          {isProfileIdExists ?
+            <Query query={GET_USER_INFO} variables={{ profileId: parseInt(profileId, 10) }}>
+              {({ data, loading, }) => {
+                if (loading) return null
+  
+                return this.renderUser(data.getUser)
+              }}
+            </Query> :
+            this.renderUser(this.createMockUser())
+        }
         </Toolbar>
       </AppBar>
     )

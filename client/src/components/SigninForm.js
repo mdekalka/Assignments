@@ -70,7 +70,7 @@ class SigninForm extends Component {
         {isPasswordEmpty && <FormHelperText>Password is required</FormHelperText>}
       </FormControl>
 
-      {error && <FormHelperText className={classes.error} error>{error}</FormHelperText>}
+      {error && <FormHelperText error>{error}</FormHelperText>}
 
       <div className={classes.buttonWrapper}>
         <Button

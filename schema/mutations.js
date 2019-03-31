@@ -1,8 +1,9 @@
 const graphql = require('graphql');
-const { GraphQLObjectType, GraphQLID } = graphql;
+const { GraphQLObjectType, GraphQLString } = graphql;
 
-const { defaultUser }  = require('../constants/constants')
+const { generateToken } = require('../utils/utils')
 const LoginType = require('./login_type');
+const randomToken = generateToken()
 
 const mutations = new GraphQLObjectType({
   name: 'Mutation',
@@ -10,15 +11,16 @@ const mutations = new GraphQLObjectType({
     tokenLogin: {
       type: LoginType,
       args: {
-        token: { type: GraphQLID },
+        token: { type: GraphQLString },
       },
-      resolve(parentValue, { token }) {
+      resolve(_, { token }) {
         if (token === process.env.SECRET_TOKEN) {
-          return Promise.resolve(defaultUser)
-        } else {
-          return Promise.reject({
-            errorMessage: 'Provided token is not valid.'
+          return Promise.resolve({
+            token: randomToken,
+            refreshToken: randomToken
           })
+        } else {
+          throw new Error('Provided token is not valid.')
         }
       }
     },

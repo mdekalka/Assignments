@@ -12,7 +12,7 @@ import { SIGN_IN, SIGN_IN_WITH_TOKEN, SAVE_TOKEN, GET_AUTH_STATE } from '../grap
 import { storage } from '../services/storage';
 import { PROFILE_KEY } from '../utils/constants';
 import svg from '../assets/main-bg.svg';
-
+import { localClient } from '../apolloClient'
 
 const styles = (theme) => ({
   root: {
@@ -48,7 +48,7 @@ class LoginPage extends Component {
     password: '',
     tokenString: '',
     errorMessage: null,
-    submitted: false,
+    errorTokenMessage: null,
   }
 
   onInputChange = (event) => {
@@ -61,9 +61,9 @@ class LoginPage extends Component {
 
   onSignIn = (signIn) => (event) => {
     event.preventDefault()
-    this.setState({ submitted: true, errorMessage: null })
+    this.setState({ errorMessage: null })
 
-    if (!this.state.username.trim() || !this.state.password.trim()) {
+    if (!this.state.username.trim().length || !this.state.password.trim().length) {
       return
     }
 
@@ -75,22 +75,39 @@ class LoginPage extends Component {
 
   onSignInWithToken = (signInWithToken) => (event) => {
     event.preventDefault()
+    this.setState({ errorTokenMessage: null })
+
+    if (!this.state.tokenString.trim().length) {
+      return
+    }
+
+    signInWithToken({ variables: {
+      token: this.state.tokenString
+    }})
   }
 
-  onSignInCompleted = async ({ login }) => {
+  onSignInCompleted = ({ login }) => {
     if (login.errorCode !== 0 && login.errorMessage) {
       this.setState({ errorMessage: login.errorMessage});
 
       return
     }
 
-    storage.setItem(PROFILE_KEY, login.profileId)
+    this.saveTokens(login);
+  }
 
-    await this.props.client.mutate({
+  onSignInWithTokenCompleted = ({ tokenLogin }) => {
+    this.saveTokens(tokenLogin);
+  }
+
+  saveTokens(loginData) {
+    storage.setItem(PROFILE_KEY, loginData.profileId)
+
+    this.props.client.mutate({
       mutation: SAVE_TOKEN,
       variables: {
-        token: login.token,
-        refreshToken: login.refreshToken
+        token: loginData.token,
+        refreshToken: loginData.refreshToken
       }
     })
 
@@ -101,12 +118,16 @@ class LoginPage extends Component {
     this.setState({ errorMessage: error.message })
   }
 
+  onSignInWithTokenFailed = (error) => {
+    this.setState({ errorTokenMessage: error.message })
+  }
+
   isInvalidField(field) {
     return this.state.submitted && !field.trim().length
   }
 
   render() {
-    const { username, password, tokenString, errorMessage } = this.state
+    const { username, password, tokenString, errorMessage, errorTokenMessage } = this.state
     const { classes } = this.props
 
     return (
@@ -144,10 +165,11 @@ class LoginPage extends Component {
 
                   <Typography className={classes.divider} align="center" variant="button" gutterBottom>or</Typography>
 
-                  <Mutation mutation={SIGN_IN_WITH_TOKEN}>
+                  <Mutation mutation={SIGN_IN_WITH_TOKEN} onCompleted={this.onSignInWithTokenCompleted} onError={this.onSignInWithTokenFailed} client={localClient}>
                     {(signInWithToken, { loading }) => {
                       return (
                         <SigninTokenForm
+                          error={errorTokenMessage}
                           loading={loading}
                           token={tokenString}
                           onChange={this.onInputChange}

@@ -11,7 +11,10 @@ import Highlight from './Highlight'
 
 const styles = (theme) => ({
   formControl: {
-    marginBottom: theme.spacing.unit * 4
+    marginBottom: theme.spacing.unit * 2
+  },
+  button: {
+    marginTop: theme.spacing.unit * 2
   }
 })
 
@@ -27,7 +30,7 @@ class SigninTokenForm extends Component {
   }
 
   render() {
-    const { loading, onChange, token, classes } = this.props
+    const { loading, onChange, token, error, classes } = this.props
     const isEmpty = this.state.submitted && !token.trim().length
 
     return (
@@ -46,12 +49,16 @@ class SigninTokenForm extends Component {
           />
           {isEmpty && <FormHelperText>Token string is required</FormHelperText>}
         </FormControl>
+
+        {error && <FormHelperText error>{error}</FormHelperText>}
+
         <Button
           variant="contained"
           color="primary"
           type="submit"
           fullWidth
           disabled={loading}
+          className={classes.button}
           >
           Sign In via token
         </Button>

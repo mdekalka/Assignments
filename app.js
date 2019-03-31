@@ -42,7 +42,7 @@ if (process.env.NODE_ENV === 'production') {
 app.use('/', index);
 app.use('/graphql', expressGraphQL({
   schema,
-  graphiql: true
+  graphiql: true,
 }));
 
 // catch 404 and forward to error handler
