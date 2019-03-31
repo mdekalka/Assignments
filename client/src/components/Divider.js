@@ -2,7 +2,6 @@ import React, { Component } from 'react';
 import { withStyles } from '@material-ui/core/styles';
 import Typography from '@material-ui/core/Typography';
 import cls from 'classnames';
-import { fade } from '@material-ui/core/styles/colorManipulator';
 
 
 const styles = theme => ({
@@ -42,7 +41,6 @@ const styles = theme => ({
     marginBottom: theme.spacing.unit * 4
   }
 })
-
 
 class Divider extends Component {
   render() {

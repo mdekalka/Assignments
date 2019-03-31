@@ -6,6 +6,7 @@ import MainHeader from '../components/MainHeader'
 import IntroPage from './IntroPage'
 import NoMatchPage from './NoMatchPage'
 import ReactReduxPage from './ReactReduxPage'
+import HTMLCSSPage from './HTMLCSSPage'
 import JSPage from './JSPage'
 
 const styles = (theme) => ({
@@ -37,6 +38,7 @@ class HomePage extends Component {
             <Route exact path="/" component={IntroPage} />
             <Route exact path="/task/react-redux" component={ReactReduxPage} />
             <Route exact path="/task/javascript" component={JSPage} />
+            <Route exact path="/task/html-css" component={HTMLCSSPage} />
             <Route component={NoMatchPage} />
           </Switch>
         </main>

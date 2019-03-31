@@ -51,8 +51,8 @@ class IntroList extends Component {
           </Grid>
           <Grid item xs={3}>
             <TaskCard
-              href="/task/react-redux"
-              title="React/Redux"
+              href="/task/html-css"
+              title="HTML/CSS"
               description="Create shop application with adding/removing items to a cart list, having separate route for each item."
               header={
                 <Fragment>
