@@ -12,7 +12,10 @@ import reactLogo from '../assets/icons/react.svg'
 import reduxLogo from '../assets/icons/redux.svg'
 import preview1 from '../assets/preview1.png'
 import preview2 from '../assets/preview2.png'
+import previewGif from '../assets/React_Redux_Preview.gif'
 
+
+import Highlight from '../components/Highlight'
 import { TaskSection, TaskDescription, TaskJumbotron, TaskHeadline, TaskContent, TaskExtra, TaskLink, TaskSeparator } from '../components/Task'
 import Mark from '../components/Mark'
 import { REACT_REDUX_COMPLETED_KEY, HEADER_HEIGHT } from '../utils/constants'
@@ -128,8 +131,15 @@ class ReactReduxPage extends Component {
             <Fragment>
             <Typography>1) Create new account at <a target="_blank" rel="noopener noreferrer" href="https://github.com/">Github</a> or <a target="_blank" rel="noopener noreferrer" href="https://bitbucket.org/">Bitbucket</a> ( if you don't have it yet)</Typography>
             <Typography>2) Create new repository and start implementing React task</Typography>
-            <Typography>3) When you finishwith React task, create new branch(checkout from React branch)and refactor local React state to Redux store.</Typography>
+            <Typography>3) When you finish with React task, create new branch(checkout from React branch)and refactor local React state to Redux store.</Typography>
             <Typography>4) When you finish all tasks - ping your mentor via slack/skype/email and share repository link with him.</Typography>
+            </Fragment>
+          </TaskExtra>
+
+          <TaskExtra>
+            <Fragment>
+            <Typography>5) Focus on <Highlight>application functionality</Highlight>, not on visual styling, you can use any CSS-framework(Bootstrap, Foundation).</Typography>
+            <Typography>6) For quick start you can use <a target="_blank" rel="noopener noreferrer" href="https://github.com/facebookincubator/create-react-app">create-react-app</a> ) or any other react/redux boilerplate.</Typography>
             </Fragment>
           </TaskExtra>
 
@@ -183,6 +193,16 @@ class ReactReduxPage extends Component {
             )}
           </div>
 
+          <TaskSeparator offset="large" />
+
+          <TaskHeadline title="Final preview of your product app" gutter />
+          <div className={classes.preview}>
+            <img src={previewGif} alt="preview gif" />
+          </div>
+
+          <TaskSeparator offset="large" />
+
+          <TaskHeadline title="Description of entities:" gutter />
           <div className={classes.workLine}>
             {tasks.map(task => (
               <RootRef key={task.id} rootRef={this.defineRef(task.id)}>

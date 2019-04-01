@@ -27,7 +27,10 @@ export const tasks = [
     id: 4,
     mark: 4,
     title: "Icon selector",
-    content: ["Should accept only numbers."]
+    content: [
+      <Fragment>On <Highlight>click</Highlight> should open dialog with hardcoded images icons.</Fragment>,
+      <Fragment>User can change product icon any time before product submit.</Fragment>
+    ]
   },
   {
     id: 5,
@@ -94,14 +97,14 @@ export const firstMarks = [
   {
     id: 1,
     mark: 1,
-    top: '17%',
-    left: '2%',
+    top: '19%',
+    left: '1%',
   },
   {
     id: 2,
     mark: 2,
-    top: '40%',
-    left: '2%',
+    top: '33%',
+    left: '1%',
   },
   {
     id: 3,
@@ -118,31 +121,31 @@ export const firstMarks = [
   {
     id: 5,
     mark: 5,
-    top: '79%',
+    top: '82%',
     left: '20%',
   },
   {
     id: 6,
     mark: 6,
-    top: '22%',
-    left: '90%',
+    top: '19%',
+    left: '91%',
   },
   {
     id: 7,
     mark: 7,
-    top: '22%',
-    left: '96%',
+    top: '19%',
+    left: '97%',
   },
   {
     id: 8,
     mark: 8,
-    top: '33%',
-    left: '70%',
+    top: '32%',
+    left: '71%',
   },
   {
     id: 9,
     mark: 9,
-    top: '84%',
+    top: '87%',
     left: '57%',
   }
 ]
@@ -151,8 +154,8 @@ export const secondMarks = [
   {
     id: 10,
     mark: 10,
-    top: '27%',
-    left: '72%',
+    top: '25%',
+    left: '73%',
   },
   {
     id: 11,
@@ -163,7 +166,7 @@ export const secondMarks = [
   {
     id: 12,
     mark: 12,
-    top: '84%',
-    left: '68%',
+    top: '87%',
+    left: '69%',
   }
 ]
