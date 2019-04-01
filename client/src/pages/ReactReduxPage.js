@@ -131,7 +131,7 @@ class ReactReduxPage extends Component {
             <Fragment>
             <Typography>1) Create new account at <a target="_blank" rel="noopener noreferrer" href="https://github.com/">Github</a> or <a target="_blank" rel="noopener noreferrer" href="https://bitbucket.org/">Bitbucket</a> ( if you don't have it yet)</Typography>
             <Typography>2) Create new repository and start implementing React task</Typography>
-            <Typography>3) When you finish with React task, create new branch(checkout from React branch)and refactor local React state to Redux store.</Typography>
+            <Typography>3) When you finish with React task, create new branch (checkout from React branch) and transform local React state to Redux store.</Typography>
             <Typography>4) When you finish all tasks - ping your mentor via slack/skype/email and share repository link with him.</Typography>
             </Fragment>
           </TaskExtra>
@@ -139,7 +139,7 @@ class ReactReduxPage extends Component {
           <TaskExtra>
             <Fragment>
             <Typography>5) Focus on <Highlight>application functionality</Highlight>, not on visual styling, you can use any CSS-framework(Bootstrap, Foundation).</Typography>
-            <Typography>6) For quick start you can use <a target="_blank" rel="noopener noreferrer" href="https://github.com/facebookincubator/create-react-app">create-react-app</a> ) or any other react/redux boilerplate.</Typography>
+            <Typography>6) For quick start you can use <a target="_blank" rel="noopener noreferrer" href="https://github.com/facebookincubator/create-react-app">create-react-app</a> or any other react/redux boilerplate.</Typography>
             </Fragment>
           </TaskExtra>
 
@@ -159,7 +159,7 @@ class ReactReduxPage extends Component {
           <TaskHeadline title="Redux part" gutter />
           <TaskSection completed={completed} onToggle={onToggle} mark="react" showMark={false}>
             <TaskDescription title="Redux additions:"><Fragment>— Load initial product list via HTTP with any mock API (<a target="_blank" rel="noopener noreferrer" href="https://www.mockable.io">https://www.mockable.io</a>, <a target="_blank" rel="noopener noreferrer" href="https://beeceptor.com/">https://beeceptor.com/</a>) or any else.</Fragment></TaskDescription>
-            <TaskDescription><Fragment>— Refactor local React state to Redux store and transform required application events to Redux actions/action creators/reducers.</Fragment></TaskDescription>
+            <TaskDescription><Fragment>— Transform local React state to Redux store and refactor required application events to Redux actions/action creators/reducers.</Fragment></TaskDescription>
           </TaskSection>
 
           <TaskSeparator offset="large" />

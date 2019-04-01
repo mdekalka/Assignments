@@ -53,7 +53,7 @@ class IntroList extends Component {
             <TaskCard
               href="/task/html-css"
               title="HTML/CSS"
-              description="Create shop application with adding/removing items to a cart list, having separate route for each item."
+              description="Create website layout with HTML and CSS."
               header={
                 <Fragment>
                   <img src={htmlLogo} alt="HTML" />
